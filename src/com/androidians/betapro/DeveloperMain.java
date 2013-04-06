@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ public class DeveloperMain extends FragmentActivity implements
 ActionBar.TabListener {
 
 	private static final int TAB_PUBLISH = 0;
+	private static final int TAB_MYAPPS =1;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -44,11 +46,19 @@ ActionBar.TabListener {
 		// container view.
 		
 		Fragment publishPage1Fragment = new PublishPage1(); //the fragment that we want to create and show 
+		Fragment myApps1Fragment = new MyApps1();
 		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); //for the Transaction between fragments
 		if(tab.getPosition()==TAB_PUBLISH){ //check to see which tab has been selected
+			
 			transaction.replace(R.id.developer_container, publishPage1Fragment); // the container in Main page and the fragment so it starts the fragment in the container
 			transaction.commit();
 		}
+		if(tab.getPosition()==TAB_MYAPPS){ //check to see which tab has been selected
+		   
+			transaction.replace(R.id.developer_container,myApps1Fragment); // the container in Main page and the fragment so it starts the fragment in the container
+			transaction.commit();
+		}
+		
 	}
 
 	@Override
@@ -84,6 +94,38 @@ ActionBar.TabListener {
 			// number argument value.
 			
 			return inflater.inflate(R.layout.publish_page1, container, false);
+			
+		}
+		
+		@Override
+		public void onActivityCreated(Bundle savedInstanceState) {
+			
+			super.onActivityCreated(savedInstanceState);
+
+			Button browseScreenShot= (Button)this.getView().findViewById(R.id.BrowseScreenShot);
+			
+
+			
+		}
+	}
+	public static class MyApps1 extends Fragment{
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
+		
+		public MyApps1() {
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			
+			// Create a new TextView and set its text to the fragment's section
+			// number argument value.
+			
+			return inflater.inflate(R.layout.my_apps1, container, false);
 			
 		}
 		

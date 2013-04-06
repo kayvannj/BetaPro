@@ -6,5 +6,6 @@
     <string name="menu_settings">Settings</string>
     <string name="publish_tab">Publish</string>
     <string name="myapps_tab">MyApps</string>
+    <string name="my_apps">IN MYAPPS</string>
 
 </resources>
