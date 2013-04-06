@@ -1,11 +1,15 @@
 package com.androidians.betapro;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class Login extends Activity {
 
@@ -14,7 +18,8 @@ public class Login extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		User testDeveloper = new User("Kayvan", "123456");
+		
+		/*User testDeveloper = new User("Kayvan", "123456");
 		User testReviewer  = new User("Alice", "654321");
 		App testApp = new App("App1", "App1ID", "this is app1 description", "icon1", "apk1", 9.3, 1, 10, 20);
 		testApp.addScreenShots("Screen Shot 1");
@@ -23,13 +28,25 @@ public class Login extends Activity {
 		testApp.addDeveloperAsksFor("UI");
 		
 		testDeveloper.addApp(testApp);
-		
-		ArrayList<String> developerAsksFor = new ArrayList<String>();
-		developerAsksFor.add("UI");
-		developerAsksFor.add("Performance");
+		Log.d("test user",testDeveloper.toString());*/		
 		
 		
-		Log.d("test user",testDeveloper.toString());
+		
+		final Intent intent = new Intent(this, DeveloperMain.class);
+		
+		Button devButton = (Button)findViewById(R.id.developer_button);
+		devButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+		        
+		        startActivity(intent);
+			}
+		});
+		
+		
+		
 		
 	}
 
