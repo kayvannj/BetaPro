@@ -20,6 +20,13 @@ public class Review {
 		this.reviewText = reviewText;
 	}
 	
+	public String toString(){
+		String output = "reviewer:"+reviewer+";"
+		+"reviewOn:"+reviewOn.toString()+";"
+		+"submitTime:"+submitTime+";"
+		+"reviewText:"+reviewText;
+		return output;
+	}
 	public User getReviewer() {
 		return reviewer;
 	}

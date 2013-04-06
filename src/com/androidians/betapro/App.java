@@ -11,7 +11,6 @@ public class App {
 	private ArrayList<String> screenShots;
 	private ArrayList<String> developerAsksFor;
 	private ArrayList<Review> reviewList;
-	private User developer;
 	private double appRate;
 	private double minPay;
 	private double maxPay;
@@ -20,9 +19,7 @@ public class App {
 	
 	
 	public App(String name, String appId, String desctiption, String icon,
-			String apk, ArrayList<String> screenShots,
-			ArrayList<String> developerAsksFor, ArrayList<Review> reviewList,
-			User developer, double appRate, double minPay, double maxPay,
+			String apk,	double appRate, double minPay, double maxPay,
 			int reviewCounter) {
 		super();
 		this.name = name;
@@ -30,15 +27,32 @@ public class App {
 		this.desctiption = desctiption;
 		this.icon = icon;
 		this.apk = apk;
-		this.screenShots = screenShots;
-		this.developerAsksFor = developerAsksFor;
-		this.reviewList = reviewList;
-		this.developer = developer;
+		this.screenShots =  new ArrayList<String>();
+		this.developerAsksFor = new ArrayList<String>();
+		this.reviewList = new ArrayList<Review>();
 		this.appRate = appRate;
 		this.minPay = minPay;
 		this.maxPay = maxPay;
 		this.reviewCounter = reviewCounter;
 	}
+	public String toString(){
+		String outPut = "name:"+name+";"
+		+"appId:"+appId+";"
+		+"desctiption:"+desctiption+";"
+		+"icon:"+icon+";"
+		+"apk:"+apk+";"
+		+"screenShots:"+screenShots.toString()+";"
+		+"developerAsksFor:"+developerAsksFor.toString()+";"
+		+"reviewList:"+reviewList.toString()+";"
+		+"appRate:"+appRate+";"
+		+"minPay:"+minPay+";"
+		+"maxPay:"+maxPay+";"
+		+"reviewCounter:"+reviewCounter;
+		
+		return outPut;
+	}
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -90,12 +104,7 @@ public class App {
 	public void addReviewList(Review review) {
 		this.reviewList.add(review);
 	}
-	public User getDeveloper() {
-		return developer;
-	}
-	public void setDeveloper(User developer) {
-		this.developer = developer;
-	}
+
 	public double getAppRate() {
 		return appRate;
 	}

@@ -12,18 +12,25 @@ public class User {
 	
 	
 	
-	public User(String username, String password, ArrayList<App> appList,
-			ArrayList<Transaction> transactionList, double balance,
-			double reviewerRate) {
+	public User(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.appList = appList;
-		this.transactionList = transactionList;
-		this.balance = balance;
-		this.reviewerRate = reviewerRate;
+		this.appList = new ArrayList<App>();
+		this.transactionList = new ArrayList<Transaction>();
+		this.balance = 0;
+		this.reviewerRate = 0;
 	}
 	
+	public String toString(){
+		String output = "username:"+username+";"
+		+"password:"+password+";"
+		+"appList:"+(appList!= null?appList.toString():"")+";"
+		+"transactionList:"+(transactionList !=null?transactionList.toString():"")+";"
+		+"balance:"+balance+";"
+		+"reviewerRate:"+reviewerRate;
+		return output;
+	}
 	
 	public boolean addApp(App app) {
 		appList.add(app);

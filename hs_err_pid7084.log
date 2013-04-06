@@ -1,0 +1,107 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (javaClasses.cpp:129), pid=7084, tid=9428
+#  fatal error: Invalid layout of preloaded class
+#
+# JRE version: 7.0_17-b02
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (23.7-b01 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000000297d800):  JavaThread "Unknown thread" [_thread_in_vm, id=9428, stack(0x0000000002600000,0x0000000002700000)]
+
+Stack: [0x0000000002600000,0x0000000002700000]
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x000000000297d800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=9428, stack(0x0000000002600000,0x0000000002700000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.012 loading class 0x00000000027917d0 done
+Event: 0.012 loading class 0x00000000027915c0 done
+Event: 0.012 loading class 0x0000000002791a10
+Event: 0.012 loading class 0x00000000027d10f0
+Event: 0.012 loading class 0x00000000027d10f0 done
+Event: 0.012 loading class 0x00000000027d1ab0
+Event: 0.012 loading class 0x00000000027d1ab0 done
+Event: 0.012 loading class 0x000000000a0fe7a0
+Event: 0.012 loading class 0x000000000a0fe7a0 done
+Event: 0.012 loading class 0x0000000002791a10 done
+
+
+Dynamic libraries:
+0x000007f782cb0000 - 0x000007f782ce3000 	C:\Program Files\Java\jre7\bin\javaw.exe
+0x000007fc32380000 - 0x000007fc3253e000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x000007fc300f0000 - 0x000007fc30226000 	C:\WINDOWS\system32\KERNEL32.DLL
+0x000007fc2f380000 - 0x000007fc2f473000 	C:\WINDOWS\system32\KERNELBASE.dll
+0x000007fc309d0000 - 0x000007fc30aae000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x000007fc30c50000 - 0x000007fc30d9c000 	C:\WINDOWS\system32\USER32.dll
+0x000007fc2cfc0000 - 0x000007fc2d229000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.9200.16384_none_418c2a697189c07f\COMCTL32.dll
+0x000007fc30f70000 - 0x000007fc31015000 	C:\WINDOWS\system32\msvcrt.dll
+0x000007fc2ff80000 - 0x000007fc2ffc8000 	C:\WINDOWS\SYSTEM32\sechost.dll
+0x000007fc30830000 - 0x000007fc30970000 	C:\WINDOWS\system32\RPCRT4.dll
+0x000007fc30630000 - 0x000007fc30770000 	C:\WINDOWS\system32\GDI32.dll
+0x000007fc2ff40000 - 0x000007fc2ff79000 	C:\WINDOWS\system32\IMM32.DLL
+0x000007fc2ffd0000 - 0x000007fc300e5000 	C:\WINDOWS\system32\MSCTF.dll
+0x0000000073390000 - 0x0000000073461000 	C:\Program Files\Java\jre7\bin\msvcr100.dll
+0x0000000072c70000 - 0x000000007338f000 	C:\Program Files\Java\jre7\bin\server\jvm.dll
+0x000007fc28fc0000 - 0x000007fc28fc9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x000007fc24c70000 - 0x000007fc24c90000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x000007fc30b70000 - 0x000007fc30b77000 	C:\WINDOWS\system32\PSAPI.DLL
+0x000007fc30970000 - 0x000007fc309c8000 	C:\WINDOWS\system32\WS2_32.dll
+0x000007fc24c30000 - 0x000007fc24c62000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x000007fc30f40000 - 0x000007fc30f49000 	C:\WINDOWS\system32\NSI.dll
+0x0000000073900000 - 0x000000007390f000 	C:\Program Files\Java\jre7\bin\verify.dll
+0x0000000072c40000 - 0x0000000072c68000 	C:\Program Files\Java\jre7\bin\java.dll
+0x00000000738e0000 - 0x00000000738f5000 	C:\Program Files\Java\jre7\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=Cp1252 -Xbootclasspath:C:\Users\Kayvan\Downloads\adt-bundle-windows-x86_64\adt-bundle-windows-x86_64\sdk\platforms\android-17\android.jar 
+java_command: com.androidians.betapro.main
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+CLASSPATH=.;C:\Program Files (x86)\Java\jre7\lib\ext\QTJava.zip
+PATH=C:\Python33\Lib\site-packages\PyQt4;C:\Python33\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Toshiba\Bluetooth Toshiba Stack\sys\;C:\Program Files (x86)\Toshiba\Bluetooth Toshiba Stack\sys\x64\;C:\Python27;C:\Program Files\nodejs\;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files (x86)\Git\cmd;C:\Users\Kayvan\AppData\Roaming\npm\;C:\Users\Kayvan\Downloads\adt-bundle-windows-x86_64\adt-bundle-windows-x86_64\sdk\platform-tools;C:\MinGW\bin;C:\Program Files (x86)\GnuWin32\bin
+USERNAME=Kayvan
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 8 , 64 bit Build 9200 
+
+CPU:total 4 (2 cores per cpu, 2 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, ht, tsc, tscinvbit
+
+Memory: 4k page, physical 6189612k(1427444k free), swap 8221228k(2333680k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (23.7-b01) for windows-amd64 JRE (1.7.0_17-b02), built on Mar  1 2013 03:38:30 by "java_re" with unknown MS VC++:1600
+
+time: Sat Apr 06 04:38:10 2013
+elapsed time: 0 seconds
+

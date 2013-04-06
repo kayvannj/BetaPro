@@ -21,6 +21,15 @@ public class Transaction {
 		this.valuePercentage = valuePercentage;
 		
 	}
+	public String toString(){
+		String output = "source:"+source+";"
+		+"destination:"+destination+";"
+		+"transactionTime:"+transactionTime+";"
+		+"amount:"+amount+";"
+		+"committed:"+committed+";"
+		+"valuePercentage:"+valuePercentage;
+		return output;
+	}
 	
 	public boolean commit(){
 		//do the transaction (send money from source to destination)
