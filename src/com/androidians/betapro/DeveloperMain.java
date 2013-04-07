@@ -104,6 +104,8 @@ ActionBar.TabListener {
 	public static class PublishPage1 extends Fragment{
 		private static final int SCREEN_SHOT1 = 1;
 		private static final int SCREEN_SHOT2 = 2;
+		private static final int ICON = 3;
+		private static final int APK = 4;
 
 		/**
 		 * The fragment argument representing the section number for this
@@ -136,6 +138,8 @@ ActionBar.TabListener {
 	        intent.addCategory(Intent.CATEGORY_OPENABLE);
 	        intent.setType("file/*");
 	        
+	        
+	        
 	        // SCREEN_SHOT1 browse
 			Button browseScreenShot1= (Button)this.getView().findViewById(R.id.screenShot1_bt);
 			browseScreenShot1.setOnClickListener(new OnClickListener() {
@@ -156,6 +160,28 @@ ActionBar.TabListener {
 				}
 			});
 			
+			// ICON browse
+			Button browseIcon= (Button)this.getView().findViewById(R.id.icon_bt);
+			browseScreenShot1.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					startActivityForResult(intent, ICON);
+				}
+			});
+			
+			// APK browse
+			Button browseApk= (Button)this.getView().findViewById(R.id.apk_bt);
+			browseScreenShot1.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					startActivityForResult(intent, APK);
+				}
+			});
+			
+			
+			
 		}
 	
 	@Override
@@ -173,6 +199,16 @@ ActionBar.TabListener {
 		// ScreenShot 2 and setting its edittext value
 		if (RESULT_OK==resultCode && requestCode==SCREEN_SHOT2) {
 			EditText screenShotAddress = (EditText)this.getView().findViewById(R.id.screenShot2_et);
+			screenShotAddress.setText(data.getData().getPath());
+		}
+		// ScreenShot 1 and setting its edittext value
+		if (RESULT_OK==resultCode && requestCode==ICON) {
+			EditText screenShotAddress = (EditText)this.getView().findViewById(R.id.icon_et);
+			screenShotAddress.setText(data.getData().getPath());
+		}
+		// ScreenShot 2 and setting its edittext value
+		if (RESULT_OK==resultCode && requestCode==APK) {
+			EditText screenShotAddress = (EditText)this.getView().findViewById(R.id.apk_et);
 			screenShotAddress.setText(data.getData().getPath());
 		}
 	}
