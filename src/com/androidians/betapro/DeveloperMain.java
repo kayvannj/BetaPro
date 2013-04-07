@@ -29,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -142,7 +143,12 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		transaction.replace(R.id.developer_container,publish2Fragment);
 		transaction.commit();
 	}
-
+	public static void changeToPublish3Fragment() {
+		Fragment publish3Fragment = new PublishPage3();
+		android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction();
+		transaction.replace(R.id.developer_container,publish3Fragment);
+		transaction.commit();
+	}
 
 
 	@Override
@@ -159,9 +165,12 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		private static final int SCREEN_SHOT2 = 2;
 		private static final int ICON = 3;
 		private static final int APK = 4;
+		
+		
 
 		public PublishPage1() {
 			// TODO Auto-generated constructor stub
+			
 		}
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -175,6 +184,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public void onActivityCreated(Bundle savedInstanceState) {
 			
 			super.onActivityCreated(savedInstanceState);
+			
 			
 			//an intent for file browsing
 	        final Intent intent = new Intent();
@@ -244,11 +254,15 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		EditText screenShot2Uri = (EditText)this.getView().findViewById(R.id.screenShot2_et);
 		EditText iconUri = (EditText)this.getView().findViewById(R.id.icon_et);
 		EditText apkUri= (EditText)this.getView().findViewById(R.id.apk_et);
+		//for debugging purpose
+		ImageView im = (ImageView)this.getView().findViewById(R.id.imageView1);
 		
 		// Getting the result of Intent
 		// ScreenShot 1 and setting its edittext value
 		if (RESULT_OK==resultCode && requestCode==SCREEN_SHOT1) {
 			screenShot1Uri.setText(data.getData().getPath());
+			im.setImageURI(data.getData());
+			im.invalidate();
 		}
 		// ScreenShot 2 and setting its edittext value
 		if (RESULT_OK==resultCode && requestCode==SCREEN_SHOT2) {
@@ -274,10 +288,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		CheckBox targetEverydayuser;
 		CheckBox targetProfessionals;
 		CheckBox targetExpert;
-		EditText howManyReviews;
-		EditText minPayAmount;
-		EditText maxPayAmount;
-		CheckBox agreement;
+		Button nextBt;
 		ArrayList<AskObj> askForList;
 		
 		public PublishPage2() {
@@ -291,13 +302,13 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			
 		}
 		public void onActivityCreated(Bundle savedInstanceState) {
-					
+
 			super.onActivityCreated(savedInstanceState);
 			
 			// getting the list view and add button
 			askFor = (ListView)this.getView().findViewById(R.id.ask_for_lv);
 			addToAskForButton = (Button)this.getView().findViewById(R.id.add_to_ask_for_bt);
-			
+			nextBt = (Button)this.getView().findViewById(R.id.next_bt);
 			// All to add custom adapter and add more functionality using dialogs 
 			final ArrayList<AskObj> askObjectLists = new ArrayList<AskObj>();
 			AskForArrayAdapter adapter = new AskForArrayAdapter(getActivity(), askObjectLists);
@@ -326,6 +337,15 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 							
 						}
 					}).create().show();
+				}
+			});
+			
+			nextBt.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					DeveloperMain.changeToPublish3Fragment();
 				}
 			});
 			
@@ -468,6 +488,29 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	
 	}
 
+	public static class PublishPage3 extends Fragment{
+		
+		EditText howManyReviews;
+		EditText minPayAmount;
+		EditText maxPayAmount;
+		CheckBox agreement;
+		public PublishPage3() {
+			// TODO Auto-generated constructor stub
+		}
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			// TODO Auto-generated method stub
+			return inflater.inflate(R.layout.publish_page3, container, false);
+		}
+		@Override
+		public void onActivityCreated(Bundle savedInstanceState) {
+			// TODO Auto-generated method stub
+			super.onActivityCreated(savedInstanceState);
+		}
+		
+	}
+	
 	public static class MyApps1 extends Fragment{
 
 
@@ -502,5 +545,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 				});
 		}
 	}
+
+	
 	
 }

@@ -19,7 +19,7 @@ public class Login extends Activity {
 		setContentView(R.layout.activity_login);
 		
 		
-		/*User testDeveloper = new User("Kayvan", "123456");
+		User testDeveloper = new User("Kayvan", "123456");
 		User testReviewer  = new User("Alice", "654321");
 		App testApp = new App("App1", "App1ID", "this is app1 description", "icon1", "apk1", 9.3, 1, 10, 20);
 		testApp.addScreenShots("Screen Shot 1");
@@ -28,7 +28,7 @@ public class Login extends Activity {
 		testApp.addDeveloperAsksFor("UI");
 		
 		testDeveloper.addApp(testApp);
-		Log.d("test user",testDeveloper.toString());*/		
+		Log.d("test user",testDeveloper.toString());		
 		
 		
 		
