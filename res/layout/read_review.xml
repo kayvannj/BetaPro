@@ -1,15 +1,65 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
     
-    <TextView
-        android:text="@string/read_review"
-        android:id="@+id/appList"
-        android:layout_height="fill_parent"
+    
+   
+   <TextView
+        android:id="@+id/detailView1"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30sp"
+       	android:layout_centerHorizontal="true"  
+       	android:layout_marginLeft="60sp"  
         android:layout_width="fill_parent"
-        >
-     </TextView>
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+   
+   
+      <TextView
+        android:id="@+id/detailView2"
+        android:layout_marginTop="30sp"
+        android:layout_below="@+id/detailView1"
+        android:layout_marginLeft="60sp" 
+		android:layout_centerHorizontal="true"       
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+         />
+   
+   
+   
+   <LinearLayout
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_alignParentBottom="true" >
+        <Button 
+            android:id="@+id/rateBtn"
+            android:text="@string/rate_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            
+            ></Button>
+         <Button 
+            android:text="@string/ask_btn" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:layout_weight="1"
+          
+            ></Button>
+          
+          <Button 
+            android:text="@string/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:layout_weight="1"
+            
+            ></Button>
+        </LinearLayout>
+        
+
     
-    
-</LinearLayout>
+</RelativeLayout>

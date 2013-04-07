@@ -14,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -92,7 +94,7 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
 		// TODO Auto-generated method stub
-		return this.appsList.get(groupPosition).getDesctiption();
+		return this.appsList.get(groupPosition).getDescription();
 		
 	}
 
@@ -142,7 +144,7 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 	}
 
 	@Override
-	public View getGroupView(int groupPosition, boolean isExpanded,
+	public View getGroupView(final int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		 if (convertView==null){
@@ -150,8 +152,22 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 			 convertView= inflater.inflate(R.layout.expandable_list_headings, null);
 			 
 		 }
-		 TextView tv = (TextView) convertView.findViewById(R.id.heading);
+		 final TextView tv = (TextView) convertView.findViewById(R.id.heading);
 		 tv.setText("Heading");
+		 
+		 //RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
+		 /*ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
+
+			@Override
+			public void onRatingChanged(RatingBar arg0, float rating, boolean arg2) {
+				
+				appsList.get(groupPosition).setAppRate(rating);
+				tv.setText("rated"+rating);
+				// TODO Auto-generated method stub
+				
+			}
+			 
+		 });*/
 		 return convertView;
 	}
 

@@ -292,10 +292,12 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public boolean onChildClick(ExpandableListView arg0, View arg1,
 				int arg2, int arg3, long arg4) {
 			// TODO Auto-generated method stub
-			 Log.d("myapps", "onclickclick");
+			 Log.d("myapps", "onclick1");
 			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
-		        startActivity(appIntent);
-		        return false;
+			 Log.d("myapps", "onclick2");
+			 Toast.makeText(getActivity(), appIntent.toString(), Toast.LENGTH_LONG).show();
+		     startActivity(appIntent);
+		      return false;
 		
 		}
 	}

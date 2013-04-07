@@ -2,16 +2,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-    
     <ExpandableListView
+        android:layout_margin="50sp"
         android:text="@string/my_apps"
         android:id="@+id/appList"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
+        android:groupIndicator="@drawable/group_indicator"
         >
-        
-        
-    </ExpandableListView>
-    
-    
+	</ExpandableListView>
 </LinearLayout>
