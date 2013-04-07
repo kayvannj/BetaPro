@@ -21,13 +21,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -494,6 +495,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		EditText minPayAmount;
 		EditText maxPayAmount;
 		CheckBox agreement;
+		Button publishBt;
 		public PublishPage3() {
 			// TODO Auto-generated constructor stub
 		}
@@ -507,6 +509,29 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public void onActivityCreated(Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
 			super.onActivityCreated(savedInstanceState);
+			howManyReviews = (EditText)this.getView().findViewById(R.id.how_many_rev_et);
+			minPayAmount= (EditText)this.getView().findViewById(R.id.min_pay_et);
+			maxPayAmount = (EditText)this.getView().findViewById(R.id.max_pay_et);
+			agreement = (CheckBox)this.getView().findViewById(R.id.agreement_cb);
+			publishBt = (Button)this.getView().findViewById(R.id.Publish);
+			
+			// user has not agreed to the agreement
+			publishBt.setEnabled(false);
+			// enable the publish when user agreed
+			agreement.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					// TODO Auto-generated method stub
+					if (isChecked) {
+						publishBt.setEnabled(true);
+					}else{
+						publishBt.setEnabled(false);
+					}
+				}
+			});
+			
+			
 		}
 		
 	}

@@ -20,7 +20,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/how_many_rev_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -48,7 +48,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/EditText01"
+            android:id="@+id/min_pay_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -74,7 +74,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/EditText02"
+            android:id="@+id/max_pay_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -92,7 +92,7 @@
         android:layout_margin="5dp" >
 
         <CheckBox
-            android:id="@+id/checkBox1"
+            android:id="@+id/agreement_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="I agree to Terms and Services" />
@@ -108,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_centerVertical="false"
             android:text="Publish" />
 
     </RelativeLayout>
