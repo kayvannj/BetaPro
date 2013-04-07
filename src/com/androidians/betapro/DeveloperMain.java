@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,14 +14,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class DeveloperMain extends FragmentActivity implements ActionBar.TabListener {
 	
 	
 	static MyAppsListAdapter appsListAdapter;
+	static ListView myAppsListView;
 
 	private static final int TAB_PUBLISH = 0;
 	private static final int TAB_MYAPPS =1;
@@ -52,8 +57,8 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		
 		
 		
-		
-	}
+		}
+
 	
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
@@ -141,12 +146,12 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			
 		}
 	}
-	public static class MyApps1 extends Fragment{
+	public static class MyApps1 extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		ListView myAppsListView;
+	
 		
 		
 		
@@ -158,19 +163,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
-			
-			//if (myAppsListView==null){
-		//	View v = inflater.inflate(R.layout.my_apps1, container,false);
-			//myAppsListView = (ListView) v.findViewById(R.id.appList);
-			
-				
-			
-			//}
-			//Toast.makeText(getApplicationContext(), "here", Toast.LENGTH_LONG).show();
-
+		
 			return inflater.inflate(R.layout.my_apps1, container, false);
 			
 		}
@@ -182,8 +175,28 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 
 			Button browseScreenShot= (Button)this.getView().findViewById(R.id.BrowseScreenShot);
 			myAppsListView = (ListView) this.getView().findViewById(R.id.appList);
+			appsListAdapter.setListView(myAppsListView);
 			myAppsListView.setAdapter(appsListAdapter);
-			Log.d("myapps","in onActivityCreated");
+		
+			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
+			 myAppsListView.setOnItemClickListener(new OnItemClickListener() {
+					
+			        @Override
+			        public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+			        startActivity(appIntent);
+			            
+			        }
+
+				});
+				 
+				 
+			
+			 
+			 
+		
+			
+			
+			
 
 			
 		}
