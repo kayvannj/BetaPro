@@ -163,7 +163,6 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public PublishPage1() {
 			// TODO Auto-generated constructor stub
 		}
-
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -272,6 +271,15 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	public static class PublishPage2 extends Fragment{
 		ListView askFor;
 		Button addToAskForButton;
+		CheckBox targetEverydayuser;
+		CheckBox targetProfessionals;
+		CheckBox targetExpert;
+		EditText howManyReviews;
+		EditText minPayAmount;
+		EditText maxPayAmount;
+		CheckBox agreement;
+		ArrayList<AskObj> askForList;
+		
 		public PublishPage2() {
 			// TODO Auto-generated constructor stub
 		}
@@ -285,9 +293,12 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public void onActivityCreated(Bundle savedInstanceState) {
 					
 			super.onActivityCreated(savedInstanceState);
+			
+			// getting the list view and add button
 			askFor = (ListView)this.getView().findViewById(R.id.ask_for_lv);
 			addToAskForButton = (Button)this.getView().findViewById(R.id.add_to_ask_for_bt);
 			
+			// All to add custom adapter and add more functionality using dialogs 
 			final ArrayList<AskObj> askObjectLists = new ArrayList<AskObj>();
 			AskForArrayAdapter adapter = new AskForArrayAdapter(getActivity(), askObjectLists);
 			askFor.setAdapter(adapter);
@@ -318,13 +329,25 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 				}
 			});
 			
+			// Built in questions for ask
 			askObjectLists.add(new AskObj("User Interface", false));
 			askObjectLists.add(new AskObj("Performance", false));
 			askObjectLists.add(new AskObj("Errors", false));
 			
+			// Keeping the ask objects
+			askForList = askObjectLists;
+			
 		}
-		
+
 		private static class AskObj {
+			/*
+			 * An object to keep track of items in the AskFor ListView.
+			 * 
+			 * This makes the data in the list view not to recycle.
+			 * 
+			 * Only used for AskFor listView
+			 */
+			
 		    private String text = "" ;
 		    private boolean checked = false ;
 		    
@@ -355,6 +378,11 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		    }
 		}
 		private static class AskObjHolder {
+			/*
+			 *  An object to hold the data regarding the layout of each item in AskFor ListView.
+			 *  
+			 *  Only used for AskFor listView
+			 */
 		    private CheckBox checkBox ;
 		    private TextView textView ;
 		    public AskObjHolder(TextView textView,CheckBox checkBox ) {
@@ -375,7 +403,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			}
 		    
 		}
-		/** Custom adapter for displaying an array of Planet objects. */
+		/** Custom adapter for displaying an array of Ask objects. */
 		private static class AskForArrayAdapter extends ArrayAdapter<AskObj> {
 		    
 			private LayoutInflater inflater;
