@@ -34,7 +34,7 @@ public class Login extends Activity {
 		
 		final Intent intent = new Intent(this, DeveloperMain.class);
 		
-		Button devButton = (Button)findViewById(R.id.developer_button);
+		Button devButton = (Button)findViewById(R.id.button1);
 		devButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
