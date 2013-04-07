@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,6 +42,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private static final int TAB_PUBLISH = 0;
 	private static final int TAB_MYAPPS =1;
+	private static FragmentManager fm;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -112,7 +114,8 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		Log.d("Tab selected", "tab has been selected"); 
 		Fragment publishPage1Fragment = new PublishPage1(); //the fragment that we want to create and show 
 		Fragment myApps1Fragment = new MyApps1();
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); //for the Transaction between fragments
+		fm = getSupportFragmentManager();
+		android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction(); //for the Transaction between fragments
 		if(tab.getPosition()==TAB_PUBLISH){ //check to see which tab has been selected
 			Log.d("Tab selected", "publish tab");
 			transaction.replace(R.id.developer_container, publishPage1Fragment); // the container in Main page and the fragment so it starts the fragment in the container
@@ -131,6 +134,13 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		}
 
 		
+	}
+	
+	public static void changeToPublish2Fragment(){ 
+		Fragment publish2Fragment = new PublishPage2();
+		android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction();
+		transaction.replace(R.id.developer_container,publish2Fragment);
+		transaction.commit();
 	}
 
 
@@ -173,8 +183,6 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	        intent.addCategory(Intent.CATEGORY_OPENABLE);
 	        intent.setType("file/*");
 	        
-	        
-	        
 	        // SCREEN_SHOT1 browse
 			Button browseScreenShot1= (Button)this.getView().findViewById(R.id.screenShot1_bt);
 			browseScreenShot1.setOnClickListener(new OnClickListener() {
@@ -215,7 +223,15 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 				}
 			});
 			
-			
+			Button next= (Button)this.getView().findViewById(R.id.next_bt);
+			next.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					DeveloperMain.changeToPublish2Fragment();
+				}
+			});
 			
 		}
 	
@@ -253,10 +269,25 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	
 	}
 
-	
+	public static class PublishPage2 extends Fragment{
+		public PublishPage2() {
+			// TODO Auto-generated constructor stub
+		}
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			
+			return inflater.inflate(R.layout.publish_page2, container, false);
+			
+		}
+		public void onActivityCreated(Bundle savedInstanceState) {
+					
+			super.onActivityCreated(savedInstanceState);
+			
+			
+		}
 		
-		
-		
+	}
 
 	public static class MyApps1 extends Fragment{
 
@@ -294,14 +325,6 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			        }
 
 				});
-				 
-				 
-			
-			 
-			 
-	
-			
-			
 
 			
 		}
