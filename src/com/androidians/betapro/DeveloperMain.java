@@ -1,5 +1,7 @@
 package com.androidians.betapro;
 
+import java.io.InputStream;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -182,27 +184,29 @@ ActionBar.TabListener {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		
+		EditText screenShot1Uri = (EditText)this.getView().findViewById(R.id.screenShot1_et);
+		EditText screenShot2Uri = (EditText)this.getView().findViewById(R.id.screenShot2_et);
+		EditText iconUri = (EditText)this.getView().findViewById(R.id.icon_et);
+		EditText apkUri= (EditText)this.getView().findViewById(R.id.apk_et);
+		
 		// Getting the result of Intent
 		// ScreenShot 1 and setting its edittext value
 		if (RESULT_OK==resultCode && requestCode==SCREEN_SHOT1) {
-			EditText screenShotAddress = (EditText)this.getView().findViewById(R.id.screenShot1_et);
-			screenShotAddress.setText(data.getData().getPath());
+			screenShot1Uri.setText(data.getData().getPath());
 		}
 		// ScreenShot 2 and setting its edittext value
 		if (RESULT_OK==resultCode && requestCode==SCREEN_SHOT2) {
-			EditText screenShotAddress = (EditText)this.getView().findViewById(R.id.screenShot2_et);
-			screenShotAddress.setText(data.getData().getPath());
+			screenShot2Uri.setText(data.getData().getPath());
 		}
-		// ScreenShot 1 and setting its edittext value
+		// icon and setting its edittext value
 		if (RESULT_OK==resultCode && requestCode==ICON) {
-			EditText screenShotAddress = (EditText)this.getView().findViewById(R.id.icon_et);
-			screenShotAddress.setText(data.getData().getPath());
+			iconUri.setText(data.getData().getPath());
 		}
-		// ScreenShot 2 and setting its edittext value
+		// apk and setting its edittext value
 		if (RESULT_OK==resultCode && requestCode==APK) {
-			EditText screenShotAddress = (EditText)this.getView().findViewById(R.id.apk_et);
-			screenShotAddress.setText(data.getData().getPath());
+			apkUri.setText(data.getData().getPath());
 		}
+		
 	}
 	
 	
