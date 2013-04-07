@@ -91,7 +91,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:hint="Icon" />
+                        android:hint="Icon"
+                        android:singleLine="true" />
 
                     <Button
                         android:id="@+id/icon_bt"
@@ -112,7 +113,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:hint="ScreenShot 1" />
+                        android:hint="ScreenShot 1"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true" />
 
                     <Button
                         android:id="@+id/screenShot1_bt"
@@ -132,7 +136,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:hint="ScreenShot 2" />
+                        android:hint="ScreenShot 2"
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
                     <Button
                         android:id="@+id/screenShot2_bt"
@@ -153,7 +159,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:hint="APK" />
+                        android:hint="APK"
+                        android:singleLine="true" />
 
                     <Button
                         android:id="@+id/apk_bt"
