@@ -162,7 +162,7 @@ ActionBar.TabListener {
 			
 			// ICON browse
 			Button browseIcon= (Button)this.getView().findViewById(R.id.icon_bt);
-			browseScreenShot1.setOnClickListener(new OnClickListener() {
+			browseIcon.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
@@ -172,7 +172,7 @@ ActionBar.TabListener {
 			
 			// APK browse
 			Button browseApk= (Button)this.getView().findViewById(R.id.apk_bt);
-			browseScreenShot1.setOnClickListener(new OnClickListener() {
+			browseApk.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
