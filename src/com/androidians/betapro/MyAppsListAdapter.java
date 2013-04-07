@@ -155,8 +155,8 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 		 final TextView tv = (TextView) convertView.findViewById(R.id.heading);
 		 tv.setText("Heading");
 		 
-		 RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
-		 ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
+		 //RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
+		 /*ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
 
 			@Override
 			public void onRatingChanged(RatingBar arg0, float rating, boolean arg2) {
@@ -167,7 +167,7 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 				
 			}
 			 
-		 });
+		 });*/
 		 return convertView;
 	}
 

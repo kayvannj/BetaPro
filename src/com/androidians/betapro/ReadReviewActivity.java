@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import android.app.ActionBar;
 import android.app.ActionBar.TabListener;
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.SeekBar;
 
 public class ReadReviewActivity extends Activity {
 	
@@ -15,15 +20,36 @@ public class ReadReviewActivity extends Activity {
 		super.onCreate(arg0);
 		//set the layout
 		setContentView(R.layout.read_review);
+		
+		
+		Button rateBtn = (Button) findViewById(R.id.rateBtn);
 		// Set up the action bar to show tabs and hide title.
-		final ActionBar actionBar = getActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		actionBar.setHomeButtonEnabled(true);
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowTitleEnabled(false);
-		// For each of the sections in the app, add a tab to the action bar.
-		actionBar.addTab(actionBar.newTab().setText(R.string.publish_tab)
-				.setTabListener((TabListener) this));
+		rateBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			  Dialog dialog = new Dialog(ReadReviewActivity.this);
+			  dialog.setContentView(R.layout.rating_dialog);
+			  dialog.setTitle("Pay and Rate");
+			  dialog.setCancelable(true);
+			  
+			  SeekBar bar = (SeekBar) dialog.findViewById(R.id.seekbar);
+			  bar.setMax(10);
+			  
+			  Button payBtn = (Button) dialog.findViewById(R.id.payBtn);
+			  payBtn.setOnClickListener(new OnClickListener() {
+	                @Override
+	                    public void onClick(View v) {
+	                        finish();
+	                    }
+	                });
+			  
+			  dialog.show();
+			  
+				
+			}
+		});
 		
 	}
 }

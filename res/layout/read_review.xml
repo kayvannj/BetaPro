@@ -3,13 +3,30 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
     
-    <TextView
-        android:text="@string/read_review"
-        android:id="@+id/appList"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        >
-     </TextView>
     
+   
+        <Button 
+            android:id="@+id/rateBtn"
+            android:text="@string/rate_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            ></Button>
+         <Button 
+            android:text="@string/ask_btn" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+          
+            ></Button>
+          
+          <Button 
+            android:text="@string/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            ></Button>
+        
+        
+
     
 </LinearLayout>

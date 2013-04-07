@@ -295,6 +295,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			 Log.d("myapps", "onclick1");
 			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
 			 Log.d("myapps", "onclick2");
+			 Toast.makeText(getActivity(), appIntent.toString(), Toast.LENGTH_LONG).show();
 		     startActivity(appIntent);
 		      return false;
 		
