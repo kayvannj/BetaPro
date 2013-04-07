@@ -107,11 +107,6 @@ ActionBar.TabListener {
 		private static final int ICON = 3;
 		private static final int APK = 4;
 
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		
 		public PublishPage1() {
 			// TODO Auto-generated constructor stub
 		}
@@ -119,9 +114,6 @@ ActionBar.TabListener {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
 			
 			return inflater.inflate(R.layout.publish_page1, container, false);
 			
@@ -216,11 +208,7 @@ ActionBar.TabListener {
 	
 	}
 	public static class MyApps1 extends Fragment{
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		
+
 		public MyApps1() {
 			// TODO Auto-generated constructor stub
 		}
@@ -228,10 +216,7 @@ ActionBar.TabListener {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			
-			// Create a new TextView and set its text to the fragment's section
-			// number argument value.
-			
+
 			return inflater.inflate(R.layout.my_apps1, container, false);
 			
 		}
