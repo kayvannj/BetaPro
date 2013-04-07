@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class App {
 	private String name;
 	private String appId;
-	private String desctiption;
+	private String description;
 	private String icon;
 	private String apk;
 	private ArrayList<String> screenShots;
@@ -18,13 +18,13 @@ public class App {
 	
 	
 	
-	public App(String name, String appId, String desctiption, String icon,
+	public App(String name, String appId, String description, String icon,
 			String apk,	double appRate, double minPay, double maxPay,
 			int reviewCounter) {
 		super();
 		this.name = name;
 		this.appId = appId;
-		this.desctiption = desctiption;
+		this.description = description;
 		this.icon = icon;
 		this.apk = apk;
 		this.screenShots =  new ArrayList<String>();
@@ -38,7 +38,7 @@ public class App {
 	public String toString(){
 		String outPut = "name:"+name+";"
 		+"appId:"+appId+";"
-		+"desctiption:"+desctiption+";"
+		+"description:"+description+";"
 		+"icon:"+icon+";"
 		+"apk:"+apk+";"
 		+"screenShots:"+screenShots.toString()+";"
@@ -65,11 +65,11 @@ public class App {
 	public void setAppId(String appId) {
 		this.appId = appId;
 	}
-	public String getDesctiption() {
-		return desctiption;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesctiption(String desctiption) {
-		this.desctiption = desctiption;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public String getIcon() {
 		return icon;
