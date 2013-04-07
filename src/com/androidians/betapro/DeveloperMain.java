@@ -1,5 +1,7 @@
 package com.androidians.betapro;
 
+import java.util.ArrayList;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -11,9 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
-public class DeveloperMain extends FragmentActivity implements
-ActionBar.TabListener {
+public class DeveloperMain extends FragmentActivity implements ActionBar.TabListener {
+	
+	
+	static MyAppsListAdapter appsListAdapter;
 
 	private static final int TAB_PUBLISH = 0;
 	private static final int TAB_MYAPPS =1;
@@ -37,6 +43,16 @@ ActionBar.TabListener {
 				.setTabListener(this));
 		actionBar.setSelectedNavigationItem(TAB_PUBLISH);
 		
+		App testApp1= new App("test app 1", "", "", "","",	0, 0, 0,0); 
+		App testApp2 = new App("test app 2", "", "", "","",	0, 0, 0,0); 
+		ArrayList<App> testAppList = new ArrayList<App>();
+		testAppList.add(testApp1);
+		testAppList.add(testApp2);
+		appsListAdapter = new MyAppsListAdapter(this,testAppList);
+		
+		
+		
+		
 	}
 	
 	@Override
@@ -51,12 +67,18 @@ ActionBar.TabListener {
 		if(tab.getPosition()==TAB_PUBLISH){ //check to see which tab has been selected
 			
 			transaction.replace(R.id.developer_container, publishPage1Fragment); // the container in Main page and the fragment so it starts the fragment in the container
+			
+			
 			transaction.commit();
 		}
 		if(tab.getPosition()==TAB_MYAPPS){ //check to see which tab has been selected
 		   
 			transaction.replace(R.id.developer_container,myApps1Fragment); // the container in Main page and the fragment so it starts the fragment in the container
 			transaction.commit();
+			
+			
+			
+			
 		}
 		
 	}
@@ -64,6 +86,17 @@ ActionBar.TabListener {
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
+		
+		if (tab.getPosition()==TAB_MYAPPS){
+			Fragment myApps1Fragment = new MyApps1();
+			android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); //for the Transaction between fragments
+			transaction.replace(R.id.developer_container,myApps1Fragment); // the container in Main page and the fragment so it starts the fragment in the container
+			transaction.commit();
+			
+
+			
+			
+		}
 		
 	}
 
@@ -113,9 +146,13 @@ ActionBar.TabListener {
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
+		ListView myAppsListView;
+		
+		
 		
 		public MyApps1() {
 			// TODO Auto-generated constructor stub
+			
 		}
 
 		@Override
@@ -125,6 +162,15 @@ ActionBar.TabListener {
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 			
+			//if (myAppsListView==null){
+		//	View v = inflater.inflate(R.layout.my_apps1, container,false);
+			//myAppsListView = (ListView) v.findViewById(R.id.appList);
+			
+				
+			
+			//}
+			//Toast.makeText(getApplicationContext(), "here", Toast.LENGTH_LONG).show();
+
 			return inflater.inflate(R.layout.my_apps1, container, false);
 			
 		}
@@ -135,7 +181,9 @@ ActionBar.TabListener {
 			super.onActivityCreated(savedInstanceState);
 
 			Button browseScreenShot= (Button)this.getView().findViewById(R.id.BrowseScreenShot);
-			
+			myAppsListView = (ListView) this.getView().findViewById(R.id.appList);
+			myAppsListView.setAdapter(appsListAdapter);
+			Log.d("myapps","in onActivityCreated");
 
 			
 		}

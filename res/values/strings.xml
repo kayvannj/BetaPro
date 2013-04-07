@@ -7,5 +7,6 @@
     <string name="publish_tab">Publish</string>
     <string name="myapps_tab">MyApps</string>
     <string name="my_apps">IN MYAPPS</string>
+    <string name="my_list">MY LIST</string>
 
 </resources>
