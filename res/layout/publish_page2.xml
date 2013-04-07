@@ -106,7 +106,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:inputType="numberPassword" >
+            android:inputType="numberPassword"
+            android:minEms="3" >
 
             <requestFocus />
         </EditText>
@@ -133,7 +134,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:inputType="numberPassword" />
+            android:inputType="numberPassword"
+            android:minEms="3" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -157,7 +160,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:inputType="numberPassword" />
+            android:inputType="numberPassword"
+            android:minEms="3" />
+
     </RelativeLayout>
 
     <RelativeLayout

@@ -2,16 +2,15 @@ package com.androidians.betapro;
 
 
 import java.util.ArrayList;
-
-import java.io.InputStream;
-
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.FragmentTransaction;
-
 import android.content.Context;
-
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,15 +21,16 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-
-import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class DeveloperMain extends FragmentActivity implements ActionBar.TabListener {
@@ -270,6 +270,8 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	}
 
 	public static class PublishPage2 extends Fragment{
+		ListView askFor;
+		Button addToAskForButton;
 		public PublishPage2() {
 			// TODO Auto-generated constructor stub
 		}
@@ -283,10 +285,159 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public void onActivityCreated(Bundle savedInstanceState) {
 					
 			super.onActivityCreated(savedInstanceState);
+			askFor = (ListView)this.getView().findViewById(R.id.ask_for_lv);
+			addToAskForButton = (Button)this.getView().findViewById(R.id.add_to_ask_for_bt);
 			
+			final ArrayList<AskObj> askObjectLists = new ArrayList<AskObj>();
+			AskForArrayAdapter adapter = new AskForArrayAdapter(getActivity(), askObjectLists);
+			askFor.setAdapter(adapter);
+			
+			addToAskForButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Builder builder = new AlertDialog.Builder(getActivity());
+					final EditText et = new EditText(getActivity());
+					et.setHint("Enter what you want to ask");
+					
+					builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							askObjectLists.add(new AskObj(et.getText().toString(), true));
+						}
+					}).setView(et).setTitle("Ask For ...").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							
+						}
+					}).create().show();
+				}
+			});
+			
+			askObjectLists.add(new AskObj("User Interface", false));
+			askObjectLists.add(new AskObj("Performance", false));
+			askObjectLists.add(new AskObj("Errors", false));
 			
 		}
 		
+		private static class AskObj {
+		    private String text = "" ;
+		    private boolean checked = false ;
+		    
+		    public AskObj(String text, boolean checked) {
+				super();
+				this.text = text;
+				this.checked = checked;
+			}
+			
+		    public String getText() {
+				return text;
+			}
+
+			public void setText(String text) {
+				this.text = text;
+			}
+
+			public boolean isChecked() {
+				return checked;
+			}
+
+			public void setChecked(boolean checked) {
+				this.checked = checked;
+			}
+
+			public void toggleChecked() {
+		      checked = !checked ;
+		    }
+		}
+		private static class AskObjHolder {
+		    private CheckBox checkBox ;
+		    private TextView textView ;
+		    public AskObjHolder(TextView textView,CheckBox checkBox ) {
+		      this.checkBox = checkBox ;
+		      this.textView = textView ;
+		    }
+		    public CheckBox getCheckBox() {
+		      return checkBox;
+		    }
+		    public void setCheckBox(CheckBox checkBox) {
+		      this.checkBox = checkBox;
+		    }
+			public TextView getTextView() {
+				return textView;
+			}
+			public void setTextView(TextView textView) {
+				this.textView = textView;
+			}
+		    
+		}
+		/** Custom adapter for displaying an array of Planet objects. */
+		private static class AskForArrayAdapter extends ArrayAdapter<AskObj> {
+		    
+			private LayoutInflater inflater;
+			
+			public AskForArrayAdapter( Context context, List<AskObj> AskList ) {
+			  super( context, R.layout.ask_for_list_item, R.id.rowTextView, AskList );
+			  // Cache the LayoutInflate to avoid asking for a new one each time.
+			  inflater = LayoutInflater.from(context) ;
+			}
+			
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+			  // Planet to display
+			  AskObj askobject= (AskObj) this.getItem( position ); 
+			
+			  // The child views in each row.
+			  CheckBox checkBox ; 
+			  TextView textView ; 
+			  
+			  // Create a new row view
+			  if ( convertView == null ) {
+			    convertView = inflater.inflate(R.layout.ask_for_list_item, null);
+			    
+			    // Find the child views.
+			textView = (TextView) convertView.findViewById( R.id.rowTextView );
+			checkBox = (CheckBox) convertView.findViewById( R.id.checkBox1 );
+			
+			// Optimization: Tag the row with it's child views, so we don't have to 
+			// call findViewById() later when we reuse the row.
+			convertView.setTag( new AskObjHolder(textView,checkBox) );
+			
+			// If CheckBox is toggled, update the planet it is tagged with.
+			    checkBox.setOnClickListener( new View.OnClickListener() {
+			      public void onClick(View v) {
+			        CheckBox cb = (CheckBox) v ;
+			        AskObj askObject= (AskObj) cb.getTag();
+			        askObject.setChecked( cb.isChecked() );
+			      }
+			    });        
+			  }
+			  // Reuse existing row view
+			  else {
+			    // Because we use a ViewHolder, we avoid having to call findViewById().
+			    AskObjHolder viewHolder = (AskObjHolder) convertView.getTag();
+			    checkBox = viewHolder.getCheckBox() ;
+			    textView = viewHolder.getTextView() ;
+			  }
+			
+			  // Tag the CheckBox with the Planet it is displaying, so that we can
+			  // access the planet in onClick() when the CheckBox is toggled.
+			  checkBox.setTag( askobject); 
+			  
+			  // Display planet data
+			  checkBox.setChecked( askobject.isChecked() );
+			  textView.setText( askobject.getText() );      
+			  
+			  return convertView;
+		    }
+		    
+		}
+	
+	
 	}
 
 	public static class MyApps1 extends Fragment{
@@ -309,7 +460,6 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public void onActivityCreated(Bundle savedInstanceState) {
 			
 			super.onActivityCreated(savedInstanceState);
-
 			
 			myAppsListView = (ListView) this.getView().findViewById(R.id.appList);
 			appsListAdapter.setListView(myAppsListView);
@@ -317,16 +467,11 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		
 			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
 			 myAppsListView.setOnItemClickListener(new OnItemClickListener() {
-					
 			        @Override
 			        public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-			        startActivity(appIntent);
-			            
+			        startActivity(appIntent); 
 			        }
-
 				});
-
-			
 		}
 	}
 	
