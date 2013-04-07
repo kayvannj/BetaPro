@@ -11,6 +11,7 @@ public class App {
 	private ArrayList<String> screenShots;
 	private ArrayList<String> developerAsksFor;
 	private ArrayList<Review> reviewList;
+	private ArrayList<String> reviewers;
 	private double appRate;
 	private double minPay;
 	private double maxPay;
@@ -44,6 +45,7 @@ public class App {
 		+"screenShots:"+screenShots.toString()+";"
 		+"developerAsksFor:"+developerAsksFor.toString()+";"
 		+"reviewList:"+reviewList.toString()+";"
+		+"reviewers" + reviewers.toString()+";"
 		+"appRate:"+appRate+";"
 		+"minPay:"+minPay+";"
 		+"maxPay:"+maxPay+";"
@@ -103,6 +105,14 @@ public class App {
 	}
 	public void addReviewList(Review review) {
 		this.reviewList.add(review);
+	}
+	
+	public String[] getReviewers(){
+		return (String[]) reviewers.toArray();
+	}
+	
+	public void addReviewer(String reviewer) {
+		this.reviewers.add(reviewer);
 	}
 
 	public double getAppRate() {

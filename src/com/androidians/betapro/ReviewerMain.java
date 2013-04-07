@@ -199,7 +199,9 @@ ActionBar.TabListener  {
 		}
 	}
 	public static class DownloadApp extends Fragment{
-		ListView lv;
+		private ListView lv;
+		private TextView nm, des;
+		private App curApp;
 
 		/**
 		 * The fragment argument representing the section number for this
@@ -215,70 +217,36 @@ ActionBar.TabListener  {
 			// Create a new TextView and set its text to the fragment's section
 			// number argument value.
 
-			return inflater.inflate(R.layout.browse, container, false);
+			return inflater.inflate(R.layout.app_download, container, false);
 		}
 
-		//Not written yet, just setting up.
-//		@Override
-//		public void onActivityCreated(Bundle savedInstanceState) {
-//
-//			super.onActivityCreated(savedInstanceState);
-//
-//
-//
-//			//Button browseScreenShot= (Button)this.getView().findViewById(R.id.BrowseScreenShot);
-//			lv = (ListView)getView().findViewById(R.id.browse_lv);
-//
-//			AppListAdapter adapter = new AppListAdapter(getActivity(), ((ReviewerMain)getActivity()).getAppList()); 
-//			lv.setAdapter(adapter);
-//		}
-//
-//		class AppListAdapter extends ArrayAdapter<App> {
-//			private final Context context;
-//			private final ArrayList<App> apps;
-//
-//			public AppListAdapter(Context context,
-//					ArrayList<App> values) {
-//				super(context, R.layout.browse_app_adapter_item, values);
-//				this.context = context;
-//				this.apps = values;
-//			}
-//
-//			// this method is called once for each item in the list
-//			@Override
-//			public View getView(int position, View convertView, ViewGroup parent) {
-//
-//				LayoutInflater inflater = (LayoutInflater) context
-//						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//				View listItem = inflater.inflate(R.layout.browse_app_adapter_item,
-//						parent, false);
-//
-//				TextView an = (TextView) listItem.findViewById(R.id.browse_app_title);
-//				an.setText(apps.get(position).getName());
-//
-//				TextView ad = (TextView) listItem.findViewById(R.id.browse_app_description);
-//				String shortDest = apps.get(position).getDescription();
-//				if(shortDest.length()>40) {
-//					shortDest = shortDest.substring(0, 41);
-//					shortDest = shortDest.substring(shortDest.lastIndexOf(" "));
-//				}
-//				ad.setText(shortDest);
-//
-//				ImageView ap = (ImageView) listItem.findViewById(R.id.browse_app_pic);
-//				//ap.setText(apps.get(position).etd);
-//
-//				return listItem;
-//			}
-//
-//			public void expandApp(View v) {
-//				LinearLayout l = (LinearLayout) v;
-//				Fragment downloadAppFragment = new downloadApp(); 
-//				((ReviewerMain)getActivity()).lastViewed = (String)((TextView)((LinearLayout)l.getChildAt(1)).getChildAt(0)).getText();
-//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction(); 
-//				transaction.replace(R.id.reviewer_container,downloadAppFragment); // the container in Main page and the fragment so it starts the fragment in the container
-//				transaction.commit();
-//			}
-//		}
+		@Override
+		public void onActivityCreated(Bundle savedInstanceState) {
+
+			super.onActivityCreated(savedInstanceState);
+			
+			for(App a: applist) {
+				if(a.getName().equals(lastViewed)){
+					curApp = a;
+					break;
+				}
+			}
+			
+			nm = (TextView)getView().findViewById(R.id.app_download_title);
+			nm.setText(curApp.getName());
+			des = (TextView)getView().findViewById(R.id.app_download_description);
+			des.setText(curApp.getDescription());
+
+			//Button browseScreenShot= (Button)this.getView().findViewById(R.id.BrowseScreenShot);
+			lv = (ListView)getView().findViewById(R.id.app_download_review_on);
+
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.app_download_adapter_item, curApp.getDeveloperAsksFor());
+			lv.setAdapter(adapter);
+		}
+		
+		public void downloadApp(View v) {
+			curApp.addReviewer(curUser.getUsername());
+		}
 	}
 
 }
