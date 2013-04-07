@@ -12,12 +12,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class MyAppsListAdapter extends ArrayAdapter<App> implements OnClickListener{
+public class MyAppsListAdapter extends BaseExpandableListAdapter{
 	private final Context context;
 	private final ArrayList<App> appsList;
 	
@@ -29,7 +30,7 @@ public class MyAppsListAdapter extends ArrayAdapter<App> implements OnClickListe
 	View listItem;
 	
 	public MyAppsListAdapter(Context context,ArrayList<App> appsList){
-		super(context,R.layout.app_item,appsList);
+		
 		this.context=context;
 		this.appsList=appsList;
 		textList=new ArrayList<TextView>();
@@ -37,7 +38,7 @@ public class MyAppsListAdapter extends ArrayAdapter<App> implements OnClickListe
 		
 	}
 	
-	public void setListView(final ListView list){
+	/*public void setListView(final ListView list){
 		this.list=list;
 		
 		
@@ -86,5 +87,83 @@ public class MyAppsListAdapter extends ArrayAdapter<App> implements OnClickListe
 		textList.get(position).setText("clicked"+position);
         Toast.makeText(getContext(), position+"", Toast.LENGTH_LONG).show();
 		
+	}*/
+
+	@Override
+	public Object getChild(int groupPosition, int childPosition) {
+		// TODO Auto-generated method stub
+		return this.appsList.get(groupPosition).getDesctiption();
+		
+	}
+
+	@Override
+	public long getChildId(int groupPosition, int childPosition) {
+		// TODO Auto-generated method stub
+		return childPosition;
+	}
+
+	@Override
+	public View getChildView(int groupPosition, int childPosition,
+			boolean isLastChild, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		if (convertView==null){
+			LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.expandable_child, null);
+		}
+			
+		TextView tv = (TextView) convertView.findViewById(R.id.childItem);
+		tv.setText("detail content goes here");
+		return convertView;
+	}
+	
+
+	@Override
+	public int getChildrenCount(int groupPosition) {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
+	@Override
+	public Object getGroup(int groupPosition) {
+		// TODO Auto-generated method stub
+		return this.appsList.get(groupPosition);
+	}
+
+	@Override
+	public int getGroupCount() {
+		// TODO Auto-generated method stub
+		return this.appsList.size();
+	}
+
+	@Override
+	public long getGroupId(int groupPosition) {
+		// TODO Auto-generated method stub
+		return groupPosition;
+	}
+
+	@Override
+	public View getGroupView(int groupPosition, boolean isExpanded,
+			View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		 if (convertView==null){
+			 LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			 convertView= inflater.inflate(R.layout.expandable_list_headings, null);
+			 
+		 }
+		 TextView tv = (TextView) convertView.findViewById(R.id.heading);
+		 tv.setText("Heading");
+		 return convertView;
+	}
+
+	@Override
+	public boolean hasStableIds() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isChildSelectable(int groupPosition, int childPosition) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

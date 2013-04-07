@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,10 +25,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.EditText;
 
 
@@ -37,12 +37,11 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	
 	
 	static MyAppsListAdapter appsListAdapter;
-	static ListView myAppsListView;
+	static ExpandableListView myAppsListView;
 
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private static final int TAB_PUBLISH = 0;
 	private static final int TAB_MYAPPS =1;
-	private static FragmentManager fm;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -114,8 +113,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		Log.d("Tab selected", "tab has been selected"); 
 		Fragment publishPage1Fragment = new PublishPage1(); //the fragment that we want to create and show 
 		Fragment myApps1Fragment = new MyApps1();
-		fm = getSupportFragmentManager();
-		android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction(); //for the Transaction between fragments
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); //for the Transaction between fragments
 		if(tab.getPosition()==TAB_PUBLISH){ //check to see which tab has been selected
 			Log.d("Tab selected", "publish tab");
 			transaction.replace(R.id.developer_container, publishPage1Fragment); // the container in Main page and the fragment so it starts the fragment in the container
@@ -134,13 +132,6 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		}
 
 		
-	}
-	
-	public static void changeToPublish2Fragment(){ 
-		Fragment publish2Fragment = new PublishPage2();
-		android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction();
-		transaction.replace(R.id.developer_container,publish2Fragment);
-		transaction.commit();
 	}
 
 
@@ -183,6 +174,8 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	        intent.addCategory(Intent.CATEGORY_OPENABLE);
 	        intent.setType("file/*");
 	        
+	        
+	        
 	        // SCREEN_SHOT1 browse
 			Button browseScreenShot1= (Button)this.getView().findViewById(R.id.screenShot1_bt);
 			browseScreenShot1.setOnClickListener(new OnClickListener() {
@@ -223,15 +216,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 				}
 			});
 			
-			Button next= (Button)this.getView().findViewById(R.id.next_bt);
-			next.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					DeveloperMain.changeToPublish2Fragment();
-				}
-			});
+			
 			
 		}
 	
@@ -263,33 +248,15 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		if (RESULT_OK==resultCode && requestCode==APK) {
 			apkUri.setText(data.getData().getPath());
 		}
-		
 	}
-	
-	
-	}
+}
 
-	public static class PublishPage2 extends Fragment{
-		public PublishPage2() {
-			// TODO Auto-generated constructor stub
-		}
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			
-			return inflater.inflate(R.layout.publish_page2, container, false);
-			
-		}
-		public void onActivityCreated(Bundle savedInstanceState) {
-					
-			super.onActivityCreated(savedInstanceState);
-			
-			
-		}
+	
 		
-	}
+		
+		
 
-	public static class MyApps1 extends Fragment{
+	public static class MyApps1 extends Fragment implements OnChildClickListener{
 
 
 		public MyApps1() {
@@ -311,22 +278,25 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			super.onActivityCreated(savedInstanceState);
 
 			
-			myAppsListView = (ListView) this.getView().findViewById(R.id.appList);
-			appsListAdapter.setListView(myAppsListView);
+			myAppsListView = (ExpandableListView) this.getView().findViewById(R.id.appList);
+			
 			myAppsListView.setAdapter(appsListAdapter);
 		
-			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
-			 myAppsListView.setOnItemClickListener(new OnItemClickListener() {
-					
-			        @Override
-			        public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-			        startActivity(appIntent);
-			            
-			        }
-
-				});
-
 			
+			 
+			 myAppsListView.setOnChildClickListener(this);
+				}
+
+	
+		@Override
+		public boolean onChildClick(ExpandableListView arg0, View arg1,
+				int arg2, int arg3, long arg4) {
+			// TODO Auto-generated method stub
+			 Log.d("myapps", "onclickclick");
+			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
+		        startActivity(appIntent);
+		        return false;
+		
 		}
 	}
 	

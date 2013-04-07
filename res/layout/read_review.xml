@@ -3,15 +3,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
     
-    <ExpandableListView
-        android:text="@string/my_apps"
+    <TextView
+        android:text="@string/read_review"
         android:id="@+id/appList"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         >
-        
-        
-    </ExpandableListView>
+     </TextView>
     
     
 </LinearLayout>
