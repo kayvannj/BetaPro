@@ -22,24 +22,27 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.androidians.betapro.DeveloperMain.PublishPage3.MyApps1;
 
 
 public class DeveloperMain extends FragmentActivity implements ActionBar.TabListener {
 	
 	
 	static MyAppsListAdapter appsListAdapter;
-	static ListView myAppsListView;
+	static ExpandableListView myAppsListView;
 
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private static final int TAB_PUBLISH = 0;
@@ -166,13 +169,11 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		private static final int SCREEN_SHOT2 = 2;
 		private static final int ICON = 3;
 		private static final int APK = 4;
-		
-		
 
 		public PublishPage1() {
 			// TODO Auto-generated constructor stub
-			
 		}
+
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -185,7 +186,6 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public void onActivityCreated(Bundle savedInstanceState) {
 			
 			super.onActivityCreated(savedInstanceState);
-			
 			
 			//an intent for file browsing
 	        final Intent intent = new Intent();
@@ -534,9 +534,9 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			
 		}
 		
-	}
-	
-	public static class MyApps1 extends Fragment{
+		
+
+	public static class MyApps1 extends Fragment implements OnChildClickListener{
 
 
 		public MyApps1() {
@@ -556,21 +556,30 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public void onActivityCreated(Bundle savedInstanceState) {
 			
 			super.onActivityCreated(savedInstanceState);
+
 			
-			myAppsListView = (ListView) this.getView().findViewById(R.id.appList);
-			appsListAdapter.setListView(myAppsListView);
+			myAppsListView = (ExpandableListView) this.getView().findViewById(R.id.appList);
+			
 			myAppsListView.setAdapter(appsListAdapter);
 		
-			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
-			 myAppsListView.setOnItemClickListener(new OnItemClickListener() {
-			        @Override
-			        public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-			        startActivity(appIntent); 
-			        }
-				});
-		}
-	}
+			
+			 
+			 myAppsListView.setOnChildClickListener(this);
+				}
 
 	
-	
+		@Override
+		public boolean onChildClick(ExpandableListView arg0, View arg1,
+				int arg2, int arg3, long arg4) {
+			// TODO Auto-generated method stub
+			 Log.d("myapps", "onclick1");
+			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
+			 Log.d("myapps", "onclick2");
+			 Toast.makeText(getActivity(), appIntent.toString(), Toast.LENGTH_LONG).show();
+		     startActivity(appIntent);
+		      return false;
+		
+		}
+	}
+	}
 }
