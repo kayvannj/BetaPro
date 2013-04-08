@@ -1,5 +1,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_empty="true" android:drawable="@drawable/arrowright"></item>
-    <item android:state_expanded="true" android:drawable="@drawable/arrowdown"></item>
-    <item android:drawable="@drawable/arrowright"></item>
+    <item android:state_empty="true" android:drawable="@drawable/arrowright1"></item>
+    <item android:state_expanded="true" android:drawable="@drawable/arrowdown1"></item>
+    <item android:drawable="@drawable/arrowright1"></item>
+    
 </selector>

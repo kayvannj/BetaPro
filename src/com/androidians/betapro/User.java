@@ -9,9 +9,7 @@ public class User {
 	private ArrayList<Transaction> transactionList;
 	private double balance;
 	private double reviewerRate;
-	
-	
-	
+
 	public User(String username, String password) {
 		super();
 		this.username = username;

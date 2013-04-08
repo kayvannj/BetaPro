@@ -8,11 +8,24 @@
     <string name="myapps_tab">MyApps</string>
     <string name="my_apps">IN MYAPPS</string>
     <string name="my_list">MY LIST</string>
-    <string name="one">$1</string>
+    <string name="one">$0</string>
     <string name="five">$5</string>
     <string name="ten">$10</string>
+    
+
+
+
+
+   
+    <string name="read_review">In Read Review</string>
+    <string name="browse_tab">Browse</string>
+    <string name="notification_tab">Notifications</string>
+    <string name="writereview_tab">Review</string>
+    <string name="rate_btn">Rate</string>
+    <string name="ask_btn">Ask</string>
+    <string name="save_btn">Save</string>
     <string name="pay_btn">Pay</string>
-	<string name="rate_btn">Rate</string>
-	<string name="save_btn">Save</string>
-	<string name="ask_btn">Ask</string>
+    <string name="upload_btn">Upload App</string>
+    <string name="title_activity_home">Home</string>
+
 </resources>

@@ -24,6 +24,7 @@
         </activity>
         <activity android:name="DeveloperMain"></activity>
         <activity android:name="ReadReviewActivity"></activity>
+        
     </application>
     
 
