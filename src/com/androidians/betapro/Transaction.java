@@ -8,26 +8,36 @@ public class Transaction {
 	private Date transactionTime;
 	private double amount;
 	private boolean committed;
-	private int valuePercentage; // 
+	private String appName;
+	private int valuePercentage;
+	private boolean read;
 	
 	public Transaction(User source, User destination, Date transactionTime,
-			double amount, int valuePercentage) {
+			double amount, String appName, int valuePercentage, boolean read) {
 		super();
 		this.source = source;
 		this.destination = destination;
 		this.transactionTime = transactionTime;
 		this.amount = amount;
 		this.committed = false;
+		this.appName = appName;
 		this.valuePercentage = valuePercentage;
+		this.read = read;
+		
+	}
+	
+	public Transaction(String s) {
 		
 	}
 	public String toString(){
 		String output = "source:"+source+";"
-		+"destination:"+destination+";"
-		+"transactionTime:"+transactionTime+";"
-		+"amount:"+amount+";"
-		+"committed:"+committed+";"
-		+"valuePercentage:"+valuePercentage;
+		+"$destination:"+destination+";"
+		+"$ransactionTime:"+transactionTime+";"
+		+"$amount:"+amount+";"
+		+"$committed:"+committed+";"
+		+"$appName:"+appName+";"
+		+"$valuePercentage:"+valuePercentage+";"
+		+"$read:"+read;
 		return output;
 	}
 	
@@ -74,12 +84,23 @@ public class Transaction {
 	public void setCommitted(boolean committed) {
 		this.committed = committed;
 	}
+	public String getAppName() {
+		return appName;
+	}
+	public void setAppName(String an) {
+		appName = an;
+	}
 	public int getValuePercentage() {
 		return valuePercentage;
 	}
 	public void setValuePercentage(int valuePercentage) {
 		this.valuePercentage = valuePercentage;
 	}
-	
+	public boolean getRead() {
+		return read;
+	}
+	public void setRead(boolean read) {
+		this.read = read;
+	}
 	
 }

@@ -30,9 +30,8 @@ public class Login extends Activity {
 		testDeveloper.addApp(testApp);
 		Log.d("test user",testDeveloper.toString());		
 		
-		
-		
-		final Intent intent = new Intent(this, DeveloperMain.class);
+
+		final Intent intent = new Intent(this, Home.class);
 		
 		Button devButton = (Button)findViewById(R.id.button1);
 		devButton.setOnClickListener(new OnClickListener() {
