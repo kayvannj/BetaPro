@@ -107,8 +107,8 @@ public class App {
 		this.reviewList.add(review);
 	}
 	
-	public String[] getReviewers(){
-		return (String[]) reviewers.toArray();
+	public ArrayList<String> getReviewers(){
+		return reviewers;
 	}
 	
 	public void addReviewer(String reviewer) {
