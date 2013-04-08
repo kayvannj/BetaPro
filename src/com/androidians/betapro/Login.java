@@ -22,7 +22,7 @@ public class Login extends Activity {
 		System.out.println("checkpoint1");
 		setContentView(R.layout.activity_login);
 		System.out.println("checkpoint2");
-		/*
+		
 		User testDeveloper = new User("Kayvan", "123456");
 		User testReviewer  = new User("Alice", "654321");
 		App testApp = new App("App1", "App1ID", "this is app1 description", "icon1", "apk1", 9.3, 1, 10, 20);
@@ -33,7 +33,6 @@ public class Login extends Activity {
 		
 		testDeveloper.addApp(testApp);
 		System.out.println("test user: " + testDeveloper.toString());	
-		
 		
 		final Intent intent = new Intent(this, DeveloperMain.class);
 		
@@ -55,7 +54,7 @@ public class Login extends Activity {
 			}
 		});
 		
-		*/
+		
 		
 		
 	}

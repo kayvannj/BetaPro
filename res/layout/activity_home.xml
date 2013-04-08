@@ -11,6 +11,7 @@
         android:layout_above="@+id/button2"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="30dp"
+        android:background="@drawable/btn_blue" style="@style/ButtonText"
         android:text="Developer"
         android:textSize="26sp" />
 
@@ -21,6 +22,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="178dp"
+        android:background="@drawable/btn_green" style="@style/ButtonText"
         android:text="Reviewer"
         android:textSize="26sp" />
 
