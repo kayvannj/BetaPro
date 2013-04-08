@@ -25,15 +25,19 @@ public class Transaction {
 		this.read = read;
 		
 	}
+	
+	public Transaction(String s) {
+		
+	}
 	public String toString(){
 		String output = "source:"+source+";"
-		+"destination:"+destination+";"
-		+"transactionTime:"+transactionTime+";"
-		+"amount:"+amount+";"
-		+"committed:"+committed+";"
-		+"appName:"+appName+";"
-		+"valuePercentage:"+valuePercentage+";"
-		+"read:"+read;
+		+"$destination:"+destination+";"
+		+"$ransactionTime:"+transactionTime+";"
+		+"$amount:"+amount+";"
+		+"$committed:"+committed+";"
+		+"$appName:"+appName+";"
+		+"$valuePercentage:"+valuePercentage+";"
+		+"$read:"+read;
 		return output;
 	}
 	

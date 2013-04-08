@@ -32,13 +32,20 @@ public class Login extends Activity {
 		testApp.addDeveloperAsksFor("UI");
 		
 		testDeveloper.addApp(testApp);
-		System.out.println("test user: " + testDeveloper.toString());	
+		//System.out.println("test user: " + testDeveloper.toString());	
 		
 		final Intent intent = new Intent(this, DeveloperMain.class);
 		
 		final EditText user = (EditText)findViewById(R.id.editText1);
 		final EditText pass = (EditText)findViewById(R.id.editText2);
 	//	final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		String userString = testDeveloper.toString();
+		System.out.println(userString);
+		if(userString != "f") {
+        	User activeUser = new User(user.getText().toString(), pass.getText().toString());
+        	activeUser.fillUser(userString);
+        }
 		
 		Button loginButton = (Button)findViewById(R.id.button1);
 		loginButton.setOnClickListener(new OnClickListener() {

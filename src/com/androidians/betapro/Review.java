@@ -13,6 +13,10 @@ public class Review {
 	public Review() {
 		
 	}
+	public Review(String s) {
+		super();
+		
+	}
 	
 	public Review(User reviewer, ArrayList<String> reviewOn, Date submitTime,
 			String reviewText, double rating) {
@@ -26,10 +30,10 @@ public class Review {
 	
 	public String toString(){
 		String output = "reviewer:"+reviewer+";"
-		+"reviewOn:"+reviewOn.toString()+";"
-		+"submitTime:"+submitTime+";"
-		+"reviewText:"+reviewText+";"
-		+"rating:"+rating;
+		+"#reviewOn:"+reviewOn.toString()+";"
+		+"#submitTime:"+submitTime+";"
+		+"#reviewText:"+reviewText+";"
+		+"#rating:"+rating;
 		return output;
 	}
 	public User getReviewer() {

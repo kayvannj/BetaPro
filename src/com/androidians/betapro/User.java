@@ -10,8 +10,6 @@ public class User {
 	private double balance;
 	private double reviewerRate;
 	
-	
-	
 	public User(String username, String password) {
 		super();
 		this.username = username;
@@ -24,13 +22,44 @@ public class User {
 	
 	public String toString(){
 		String output = "username:"+username+";"
-		+"password:"+password+";"
-		+"appList:"+(appList!= null?appList.toString():"")+";"
-		+"transactionList:"+(transactionList !=null?transactionList.toString():"")+";"
-		+"balance:"+balance+";"
-		+"reviewerRate:"+reviewerRate;
+		+"|password:"+password+";"
+		+"|appList:"+(appList!= null?appList.toString():"")+";"
+		+"|transactionList:"+(transactionList !=null?transactionList.toString():"")+";"
+		+"|balance:"+balance+";"
+		+"|reviewerRate:"+reviewerRate;
 		return output;
 	}
+	
+	public void fillUser(String s) {
+		String[] userFields = s.split(";\\|");
+		String appListField = userFields[2];
+		String appListFld = appListField.substring(9,appListField.length()-2);
+		String[] apps = appListFld.split("@, ");
+		for(String a: apps) {
+			appList.add(new App(a));
+		}
+		String[] transactions = userFields[3].split("$, ");
+//		for(String t:transactions) {
+//			transactionList.add(new Transaction(t));
+//		}
+		System.out.println("input to transactionlist: " + userFields[3]);
+		balance = Double.valueOf(userFields[4].substring(8));
+		reviewerRate = Double.valueOf(userFields[5].substring(13));
+		System.out.println("New user: " + this.toString());
+	}
+//	private void splitAppList(String s) {
+//		ArrayList<Integer> openP = new ArrayList<Integer>();
+//		ArrayList<Integer> closeP = new ArrayList<Integer>();
+//		for(int i = 0; i<s.length(); i++) {
+//			if(s.charAt(i)=='[') {
+//				openP.add(i);
+//			} else if (s.charAt(i)==']') {
+//				closeP.add(i);
+//			}
+//		}
+//		
+//		
+//	}
 	
 	public boolean addApp(App app) {
 		appList.add(app);

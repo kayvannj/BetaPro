@@ -384,7 +384,6 @@ ActionBar.TabListener  {
 				tl.add(trlist.length-1-i, trlist[i]);
 			}
 			
-			//Button browseScreenShot= (Button)this.getView().findViewById(R.id.BrowseScreenShot);
 			lv = (ListView)getView().findViewById(R.id.notification_lv);
 
 			NotificationListAdapter adapter = new NotificationListAdapter(getActivity(),tl);
