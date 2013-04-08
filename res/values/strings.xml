@@ -15,5 +15,7 @@
     <string name="rate_btn">Rate</string>
     <string name="ask_btn">Ask</string>
     <string name="save_btn">Save</string>
-	<string name="pay_btn">Pay</string>
+    <string name="pay_btn">Pay</string>
+    <string name="title_activity_home">Home</string>
+
 </resources>

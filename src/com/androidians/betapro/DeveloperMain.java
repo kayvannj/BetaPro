@@ -36,7 +36,7 @@ import android.widget.EditText;
 public class DeveloperMain extends FragmentActivity implements ActionBar.TabListener {
 	
 	
-	static MyAppsListAdapter appsListAdapter;
+	//static MyAppsListAdapter appsListAdapter;
 	static ExpandableListView myAppsListView;
 
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
@@ -68,7 +68,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		ArrayList<App> testAppList = new ArrayList<App>();
 		testAppList.add(testApp1);
 		testAppList.add(testApp2);
-		appsListAdapter = new MyAppsListAdapter(this,testAppList);
+	//	appsListAdapter = new MyAppsListAdapter(this,testAppList);
 		
 		
 		
@@ -280,7 +280,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			
 			myAppsListView = (ExpandableListView) this.getView().findViewById(R.id.appList);
 			
-			myAppsListView.setAdapter(appsListAdapter);
+		//	myAppsListView.setAdapter(appsListAdapter);
 		
 			
 			 
@@ -293,10 +293,10 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 				int arg2, int arg3, long arg4) {
 			// TODO Auto-generated method stub
 			 Log.d("myapps", "onclick1");
-			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
+//			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
 			 Log.d("myapps", "onclick2");
-			 Toast.makeText(getActivity(), appIntent.toString(), Toast.LENGTH_LONG).show();
-		     startActivity(appIntent);
+	//		 Toast.makeText(getActivity(), appIntent.toString(), Toast.LENGTH_LONG).show();
+		//     startActivity(appIntent);
 		      return false;
 		
 		}
