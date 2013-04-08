@@ -13,7 +13,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
+
+        <!--
           <activity
             android:name="com.androidians.betapro.ReadReviewActivity"
             android:label="@string/app_name" >
@@ -24,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name="DeveloperMain"></activity>
-      
+        -->
         <activity
             android:name="com.androidians.betapro.Login"
             android:label="@string/app_name" >
@@ -34,8 +35,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        
+        <activity
+            android:name="com.androidians.betapro.Home"
+            android:label="@string/title_activity_home" >
+        </activity>
     </application>
 
 </manifest>
