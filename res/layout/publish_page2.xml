@@ -78,7 +78,9 @@
                 android:id="@+id/add_to_ask_for_bt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                 android:textColor="@color/White"
                 android:layout_below="@id/ask_for_lv"
+                android:background="@drawable/yellowbutton"
                 android:layout_centerHorizontal="true"
                 android:text="Add more" />
         </RelativeLayout>
@@ -93,6 +95,8 @@
             android:id="@+id/next_bt"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+             android:textColor="@color/White"
+            android:background="@drawable/greenbutton"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="20dp"
