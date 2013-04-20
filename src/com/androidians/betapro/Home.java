@@ -16,6 +16,9 @@ public class Home extends Activity {
 		
 		final Intent devMainIntent = new Intent(this, DeveloperMain.class);
 		final Intent revMainIntent = new Intent(this, ReviewerMain.class);
+		Bundle b = getIntent().getExtras();
+		devMainIntent.putExtra(Login.CURRENT_USER, b.getString(Login.CURRENT_USER));
+		revMainIntent.putExtra(Login.CURRENT_USER, b.getString(Login.CURRENT_USER));
 		
 		Button developerBt = (Button)findViewById(R.id.developer_bt);
 		developerBt.setOnClickListener(new OnClickListener() {

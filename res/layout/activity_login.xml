@@ -4,50 +4,58 @@
     android:layout_height="match_parent"
     tools:context=".Login" >
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="56dp"
-        android:layout_marginTop="118dp"
-        android:hint="Username"
-        android:ems="10" >
 
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_alignRight="@+id/editText1"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="30dp"
-        android:hint="Password"
-        android:ems="10"
-        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText2"
-        android:layout_alignRight="@+id/editText1"
+        android:layout_alignRight="@+id/editText2"
         android:layout_below="@+id/editText2"
         android:layout_marginTop="30dp"
-        android:text="Login" />
+        android:background="@drawable/btn_blue" style="@style/ButtonText"
+        android:text="Log In" />
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
+        android:gravity="center_horizontal"
         android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"
         android:text="BetaPro"
         android:textSize="40dp" />
+    
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/border_top_right_left"
+        android:padding="15dp"
+        android:textSize="20dp"
+        android:ems="11"
+        android:textColorHint="#333333"
+        android:hint="Username" />
+    
+        <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignRight="@+id/editText1"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/square"
+        android:ems="11"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="15dp"
+        android:textColorHint="#333333"
+        android:textSize="20dp" />
 
 </RelativeLayout>

@@ -1,17 +1,24 @@
 package com.androidians.betapro;
 
 import java.util.ArrayList;
+import java.util.Map;
+
+import android.content.SharedPreferences;
 
 public class App {
 	private String name;
-	private String appId;
+	private String appID;
 	private String description;
 	private String icon;
 	private String apk;
 	private ArrayList<String> screenShots;
+	private String screenShotsListString;
 	private ArrayList<String> developerAsksFor;
-	private ArrayList<Review> reviewList;
+	private String developerAsksForListString;
+	private ArrayList<String> reviewList;
+	private String reviewListString;
 	private ArrayList<String> reviewers;
+	private String reviewersListString;
 	private double appRate;
 	private double minPay;
 	private double maxPay;
@@ -19,18 +26,18 @@ public class App {
 	
 	
 	
-	public App(String name, String appId, String description, String icon,
+	public App(String name, String appID, String description, String icon,
 			String apk,	double appRate, double minPay, double maxPay,
 			int reviewCounter) {
 		super();
 		this.name = name;
-		this.appId = appId;
+		this.appID = appID;
 		this.description = description;
 		this.icon = icon;
 		this.apk = apk;
 		this.screenShots =  new ArrayList<String>();
 		this.developerAsksFor = new ArrayList<String>();
-		this.reviewList = new ArrayList<Review>();
+		this.reviewList = new ArrayList<String>();
 		this.reviewers = new ArrayList<String>();
 		this.appRate = appRate;
 		this.minPay = minPay;
@@ -40,70 +47,108 @@ public class App {
 
 	//s is everything that defines app, see toString (from name to reviewCounter variable).
 	public App(String s) {
-		super();
+		
 		System.out.println("input to app: " + s);
-		String[] appFields = s.split(";@");
-		name = appFields[0].substring(5);
-		appId = appFields[1].substring(6);
-		description = appFields[2].substring(12);
-		icon = appFields[3].substring(5);
-		apk = appFields[4].substring(4);
-		
-		String temp = appFields[5];
-		
-		screenShots =  new ArrayList<String>();
-		String[] screenShotsFields = temp.substring(13, temp.length()-1).split(", ");
-		for(String ssf: screenShotsFields) {
-			if(!ssf.equals(""))
-				screenShots.add(ssf);
+		if(!s.equals("")){
+			String[] appFields = s.split(";");
+
+			name = appFields[0].split(":")[1];
+			appID = appFields[1].split(":")[1];
+			description = appFields[2].split(":")[1];
+			icon = appFields[3].split(":")[1];
+			apk = appFields[4].split(":")[1];
+			
+			screenShotsListString = appFields[5].split(":")[1];
+			screenShots = parseArrayListFromString(screenShotsListString);
+			
+			developerAsksForListString = appFields[6].split(":")[1];
+			developerAsksFor = parseArrayListFromString(developerAsksForListString);
+			
+			reviewListString = appFields[7].split(":")[1];
+			reviewList = parseArrayListFromString(reviewListString);
+			
+			reviewersListString = appFields[8].split(":")[1];
+			reviewers =  parseArrayListFromString(reviewersListString);
+			
+			appRate = Double.parseDouble(appFields[9].split(":")[1]);
+			minPay = Double.parseDouble(appFields[10].split(":")[1]);
+			maxPay = Double.parseDouble(appFields[11].split(":")[1]);
+			reviewCounter = Integer.parseInt(appFields[12].split(":")[1]);
+		}else{
+			screenShots = new ArrayList<String>();
+			developerAsksFor = new ArrayList<String>();
+			reviewList = new ArrayList<String>();;
+			reviewers  = new ArrayList<String>();;
 		}
-		
-		developerAsksFor = new ArrayList<String>();
-		temp = appFields[6];
-		String[] developerAskedForFields = temp.substring(18,temp.length()-1).split(", ");
-		for(String daff: developerAskedForFields) {
-			if(!daff.equals(""))
-				developerAsksFor.add(daff);
-		}
-		reviewList = new ArrayList<Review>();
-		temp = appFields[7];
-//		String[] reviewListFields = temp.substring(12,temp.length()-1).split("#, ");
-//		for(String rlf:reviewListFields) {
-//			if(!rlf.equals(""))
-//				reviewList.add(new Review(rlf));
-//		}
-		System.out.println("input string to reviewlist: " + temp);
-		
-		reviewers = new ArrayList<String>();
-		temp = appFields[8];
-		String[] reviewersFields = temp.substring(10,temp.length()-1).split(", ");
-		for(String rf: reviewersFields) {
-			if(!rf.equals(""))
-				reviewers.add(rf);
-		}
-		appRate = Double.valueOf(appFields[9].substring(8));
-		minPay = Double.valueOf(appFields[10].substring(7));
-		maxPay = Double.valueOf(appFields[11].substring(7));
-		reviewCounter = Integer.valueOf(appFields[12].substring(14));
 	}
 	public String toString(){
+
 		String outPut = "name:"+name+";"
-		+"@appId:"+appId+";"
-		+"@description:"+description+";"
-		+"@icon:"+icon+";"
-		+"@apk:"+apk+";"
-		+"@screenShots:"+screenShots.toString()+";"
-		+"@developerAsksFor:"+developerAsksFor.toString()+";"
-		+"@reviewList:"+reviewList.toString()+";"
-		+"@reviewers" + reviewers.toString()+";"
-		+"@appRate:"+appRate+";"
-		+"@minPay:"+minPay+";"
-		+"@maxPay:"+maxPay+";"
-		+"@reviewCounter:"+reviewCounter +"@";
+		+"appID:"+appID+";"
+		+"description:"+description+";"
+		+"icon:"+icon+";"
+		+"apk:"+apk+";"
+		+"screenShots:"+screenShots.toString()+";"
+		+"developerAsksFor:"+developerAsksFor.toString()+";"
+		+"reviewList:"+reviewList.toString()+";"
+		+"reviewers:" + reviewers.toString()+";"
+		+"appRate:"+appRate+";"
+		+"minPay:"+minPay+";"
+		+"maxPay:"+maxPay+";"
+		+"reviewCounter:"+reviewCounter;
 		
 		return outPut;
 	}
 	
+	public static ArrayList<App> getAppsFromAppString(SharedPreferences sp,String appListString){
+		ArrayList<App> userApps = new ArrayList<App>(); 
+		if (!appListString.equals("[]")) {
+			String[] appListArray = appListString.split(",");
+			//get rid of [ and ]
+			appListArray[0] = appListArray[0].substring(1);
+			appListArray[appListArray.length-1] = appListArray[appListArray.length-1].substring(0,appListArray[appListArray.length-1].length()-1);
+			
+			System.out.print(appListString);
+			System.out.print(appListArray);
+			//Map<String,?> all = sp.getAll();
+			for (String s : appListArray) {
+				
+				String out = sp.getString(s.trim(), "");
+				userApps.add(new App(out));
+			}
+		}
+		return userApps;
+	}
+	private ArrayList<String> parseArrayListFromString(String s){
+		ArrayList<String> t = new ArrayList<String>();
+		if (!s.equals("[]")) {
+			String[] itemArray = s.split(",");
+			//get rid of [ and ]
+			itemArray[0] = itemArray[0].substring(1);
+			itemArray[itemArray.length-1] = itemArray[itemArray.length-1].substring(0,itemArray[itemArray.length-1].length()-1);
+
+			for (String item : itemArray) {
+				t.add(item);
+			}
+		}
+		return t;
+	}
+	
+	public String getReviewListString() {
+		return reviewList.toString();
+	}
+	public String getDeveloperAsksForListString() {
+		return developerAsksFor.toString();
+	}
+	public String getReviewersListString() {
+		return reviewers.toString();
+	}
+	public String getAppID() {
+		return appID;
+	}
+	public String getScreenShotsListString() {
+		return screenShots.toString();
+	}
 	
 	public String getName() {
 		return name;
@@ -111,11 +156,8 @@ public class App {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAppId() {
-		return appId;
-	}
-	public void setAppId(String appId) {
-		this.appId = appId;
+	public void setAppID(String appID) {
+		this.appID = appID;
 	}
 	public String getDescription() {
 		return description;
@@ -142,18 +184,17 @@ public class App {
 		this.screenShots.add(screenShot);
 	}
 	
-	public String[] getDeveloperAsksFor() {
-		return (String[]) developerAsksFor.toArray();
+	public ArrayList<String> getDeveloperAsksFor() {
+		return developerAsksFor;
 	}
 	
 	public void addDeveloperAsksFor(String developerAsksForItem) {
 		this.developerAsksFor.add(developerAsksForItem);
 	}
-	
-	public Review[] getReviewList() {
-		return (Review[]) reviewList.toArray();
+	public ArrayList<String> getReviewList() {
+		return reviewList;
 	}
-	public void addReviewList(Review review) {
+	public void addReviewList(String review) {
 		this.reviewList.add(review);
 	}
 	

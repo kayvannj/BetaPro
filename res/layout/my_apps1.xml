@@ -20,6 +20,12 @@
        
 
 	</ExpandableListView>
+	<TextView
+	    android:id="@+id/no_apps"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+	    
+	</TextView>
 	
     <Button 
             android:id="@+id/uploadBtn"

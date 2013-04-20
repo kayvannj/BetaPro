@@ -11,10 +11,19 @@
         android:text="Notifications"
         android:textSize="25dp"
         android:textStyle="bold"/>
+    <TextView 
+        android:id="@+id/notification_none"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="You have no notifications."
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:gravity="right"
+        android:visibility="invisible"/>    
 
      <ListView 
         android:id="@+id/notification_lv"
 	   	android:layout_width="fill_parent"
-	   	android:layout_height="fill_parent">
+	   	android:layout_height="wrap_content">
     </ListView>
 </LinearLayout>

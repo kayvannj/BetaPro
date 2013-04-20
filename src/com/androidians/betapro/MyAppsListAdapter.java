@@ -1,5 +1,6 @@
 package com.androidians.betapro;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -103,8 +104,22 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 			convertView = inflater.inflate(R.layout.expandable_child, null);
 		}
 			
+		
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
 		TextView tv = (TextView) convertView.findViewById(R.id.childItem);
-		tv.setText("detail content goes here");
+		TextView detailTv = (TextView) convertView.findViewById(R.id.childDetailItem);
+		
+		
+		
+		
+		ArrayList<Review> reviewList = Review.getReviewFromReviewString(Login.getSharedPreferences(context), this.appsList.get(groupPosition).getReviewListString());
+		if (reviewList.size()>0) {
+			tv.setText(reviewList.get(childPosition).getReviewText());
+			detailTv.setText("Reviewed by "+reviewList.get(childPosition).getReviewer()+" on "+dateFormat.format(reviewList.get(childPosition).getSubmitTime()));
+		}
+		
 		return convertView;
 	}
 	
@@ -143,7 +158,10 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 			 
 		 }
 		 final TextView tv = (TextView) convertView.findViewById(R.id.heading);
-		 tv.setText("Heading");
+		 final TextView ctv = (TextView) convertView.findViewById(R.id.numReviewers);
+		 tv.setText(this.appsList.get(groupPosition).getName());
+		 ctv.setText(this.appsList.get(groupPosition).getReviewCounter()+" reviews");
+		 
 		 
 		 //RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
 		 /*ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){

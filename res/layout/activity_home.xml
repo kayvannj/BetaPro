@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/reviewer_bt"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="15dp"
         android:background="@drawable/btn_blue"
         android:text="Developer"
         android:textSize="26sp" />
@@ -21,9 +22,9 @@
         style="@style/ButtonText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="178dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="15dp"
         android:background="@drawable/btn_green"
         android:text="Reviewer"
         android:textSize="26sp" />
@@ -34,8 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="51dp"
-        android:layout_marginLeft="44dp"
+        android:layout_centerVertical="false"
+        android:layout_margin="15dp"
         android:text="View as a..."
         android:textSize="40sp" />
 
