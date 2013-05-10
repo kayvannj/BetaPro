@@ -177,8 +177,8 @@ public class App {
 	public void setApk(String apk) {
 		this.apk = apk;
 	}
-	public String[] getScreenShots() {
-		return (String[])screenShots.toArray();
+	public ArrayList<String> getScreenShots() {
+		return screenShots;
 	}
 	public void addScreenShots(String screenShot) {
 		this.screenShots.add(screenShot);

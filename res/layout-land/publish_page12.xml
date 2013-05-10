@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="5dp" >
+
+        <TextView
+            android:id="@+id/read_how_to_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="49dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/title_and_des_rr"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/read_how_to_et"
+            android:layout_margin="5dp" >
+
+            <TextView
+                android:id="@+id/app_name_lable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:text="App Name:"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/app_name_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/app_name_lable"
+                android:layout_alignLeft="@+id/des_ll"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/app_name_lable"
+                android:ems="10"
+                android:singleLine="true" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/app_des_lable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/app_name_lable"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Description:"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <LinearLayout
+                android:id="@+id/des_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/app_des_lable"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/app_des_lable"
+                android:background="#a9bae4"
+                android:gravity="center_vertical|top"
+                android:padding="3dp" >
+
+                <EditText
+                    android:id="@+id/app_des_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/White"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:lines="5" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/title_and_des_rr"
+            android:gravity="center_vertical" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <EditText
+                        android:id="@+id/icon_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="Icon"
+                        android:singleLine="true" />
+
+                    <Button
+                        android:id="@+id/icon_bt"
+                        android:layout_width="70dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/folder"
+                        android:textColor="@color/White" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <EditText
+                        android:id="@+id/screenShot1_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="ScreenShot 1"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true" />
+
+                    <Button
+                        android:id="@+id/screenShot1_bt"
+                        android:layout_width="70dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/folder"
+                        android:textColor="@color/White" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <EditText
+                        android:id="@+id/screenShot2_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="ScreenShot 2"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                    <Button
+                        android:id="@+id/screenShot2_bt"
+                        android:layout_width="70dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/folder"
+                        android:textColor="@color/White" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <EditText
+                        android:id="@+id/apk_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="APK"
+                        android:singleLine="true" />
+
+                    <Button
+                        android:id="@+id/apk_bt"
+                        android:layout_width="70dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/folder"
+                        android:textColor="@color/White" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent" >
+
+                <Button
+                    android:id="@+id/next_bt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0"
+                    android:background="@drawable/greenbutton"
+                    android:text="Next"
+                    android:textColor="@color/White" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -33,21 +38,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="App Name:"
+                android:text="MyDrawingApp"
                 android:textColor="#0065b4"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="vertical" >
 
             <Button
                 android:id="@+id/app_download_button"
+                style="@style/ButtonText"
+                android:background="@drawable/btn_green"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:background="#008000"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="Download"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:textSize="17sp" />
+
+			<Button
+			    android:id="@+id/app_review_button"
+			    style="@style/ButtonText"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="center"
+			    android:layout_marginTop="10dp"
+			    android:background="@drawable/btn_blue"
+			    android:padding="5dp"
+			    android:text="    Review    "
+			    android:textColor="#ffffff"
+			    android:textSize="17sp" />
+
+			</LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -55,9 +84,18 @@
         android:id="@+id/app_download_description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="App description"
+        android:text="This app is a simple drawing application for the beginning users. It has simple functionalities for drawing with lines and shapes with different colors and effects and erasing."
         android:textSize="15sp"
 		android:padding="15dp"/>
+
+    <HorizontalScrollView
+        android:id="@+id/app_download_screenshots"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:scrollbarStyle="insideOverlay" >
+			
+	</HorizontalScrollView>
+
     <TextView 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -65,11 +103,49 @@
         android:textSize="20sp"
         android:textStyle="bold"
 		android:paddingLeft="15dp"/>
-    <ListView
+    <LinearLayout
         android:id="@+id/app_download_review_on"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-		android:padding="15dp"/>
+		android:padding="15dp"
+		android:orientation="vertical"
+		/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+		android:padding="15dp">
 
+	    <TextView
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.65"
+	        android:text="Reward Amount:"
+	        android:textSize="20sp"
+	        android:textStyle="bold" />
+
+	    <TextView
+	        android:id="@+id/app_download_reward"
+	        android:layout_width="0dp"
+	        android:layout_weight="0.35"
+	        android:layout_height="wrap_content"
+	        android:text="$0.01~$1.00"
+	        android:textSize="15sp"
+	        android:gravity="right"/>
+    </LinearLayout>
+	    
+    <Button
+        android:id="@+id/app_download_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		style="@style/ButtonText"
+        android:background="@drawable/btn_light_green"
+        android:textSize="15sp"
+        android:text="Back"
+        android:layout_marginLeft="15dp"
+        />
+	    
 </LinearLayout>
+</ScrollView>

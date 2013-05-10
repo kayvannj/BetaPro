@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="15sp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15sp"
+        android:text="Thank you for becoming a member! Good Choice because BetaPro will help you have your Beta Apps become Pro Apps! Here are some basic information you may want to know. And you can, "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        >
+    <Button
+        android:id="@+id/button2"
+        android:gravity="center_horizontal"
+        
+        android:background="@drawable/btn_blue" style="@style/ButtonText"
+        android:layout_marginBottom="15sp"
+        android:text="Take a tour" />
+    </LinearLayout>
+
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        >
+    <Button
+        android:id="@+id/button1"
+        android:gravity="center_horizontal"
+       
+        android:background="@drawable/btn_green" style="@style/ButtonText"
+        android:text="Proceed to Log in " />
+     </LinearLayout>
+    
+</LinearLayout>

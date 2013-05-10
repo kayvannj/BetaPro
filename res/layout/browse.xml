@@ -5,10 +5,21 @@
     android:orientation="vertical"
     android:padding="10dp">
     
-    <ListView 
+    <TextView
+        android:id="@+id/browse_max_reward"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Max Reward"
+        android:textSize="15dp"
+        android:gravity="right"
+        />
+    
+    <ListView
         android:id="@+id/browse_lv"
-	   	android:layout_width="fill_parent"
-	   	android:layout_height="fill_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarAlwaysDrawVerticalTrack="false" >
+
     </ListView>
 
 </LinearLayout>

@@ -1,0 +1,42 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical">
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:text="The app has been download, install now?"/>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content" 
+	    android:orientation="horizontal"
+	    android:weightSum="1"
+	    android:padding="10dp">
+	     <Button
+	        android:id="@+id/download_dialog_later"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+			style="@style/ButtonText"
+	        android:background="@drawable/btn_light_green"
+	        android:text="Install Later"
+	        android:textSize="20dp"
+	        android:layout_marginRight="10dp"
+	        android:layout_weight="0.5"/>
+	     <Button 
+	         android:id="@+id/download_dialog_install"
+	         android:layout_width="0dp"
+	         android:layout_height="wrap_content"
+	         style="@style/ButtonText"
+	         android:onClick="submitReview"
+	         android:background="@drawable/greenbutton"
+	         android:layout_marginLeft="10dp"
+	         android:textSize="20dp"
+	      	 android:layout_weight="0.5"
+	         android:text="Install Now" />
+	</LinearLayout>
+    
+</LinearLayout>

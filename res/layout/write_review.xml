@@ -1,125 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sv"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-<LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="15dp" >
+    android:layout_height="fill_parent" >
 
-        <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_below="@id/scrollView01" >
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.35"
-                android:text="Application:"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/review_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="0.65"
-                android:textSize="18dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.35"
-                android:text="I evaluated:"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:padding="15dp" >
 
             <LinearLayout
-                android:id="@+id/review_checkboxes"
-                android:layout_width="0dp"
+                android:id="@+id/ll1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.65"
-                android:orientation="vertical" >
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.35"
+                    android:text="Application:"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/review_app_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.65"
+                    android:gravity="center"
+                    android:text="MyDrawingApp"
+                    android:textColor="@color/green"
+                    android:textSize="18dp" />
+
+                <!--
+                     <Spinner
+                    android:id="@+id/review_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="0.65"
+                    android:textSize="18dp" />
+                -->
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:weightSum="1" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.35"
-                android:text="Review:"
-                android:textSize="18dp"
-                android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.65"
-                android:background="#a9bae4"
-                android:padding="3dp" >
+                android:layout_below="@id/ll1"
+                android:orientation="horizontal" >
 
-                <EditText
-                    android:id="@+id/review_editText"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.35"
+                    android:text="I evaluated:"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/review_checkboxes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.65"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll2"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Review:"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="#FFFFFF"
-                    android:inputType="textMultiLine"
-                    android:minLines="4" >
-                </EditText>
+                    android:background="#a9bae4"
+                    android:padding="3dp" >
+
+                    <EditText
+                        android:id="@+id/review_editText"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:gravity="center_vertical|top"
+                        android:inputType="textMultiLine"
+                        android:minLines="4" >
+                    </EditText>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll4"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Rate the App:"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:layout_below="@id/ll3"
+                android:orientation="vertical" >
 
-            <RatingBar
-                android:id="@+id/review_ratingBar"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Rate the App:"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/review_ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:numStars="5"
+                    android:rating="0.0"
+                    android:stepSize="1.0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll5"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:numStars="5"
-                android:rating="0.0"
-                android:stepSize="1.0" />
-        </LinearLayout>
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/ll4"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/review_submitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:onClick="submitReview"
-            android:text="Submit" />
+                <Button
+                    android:id="@+id/review_back"
+                    style="@style/ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/btn_light_green"
+                    android:text="Back" />
 
-</LinearLayout>
-</ScrollView>
+                <Button
+                    android:id="@+id/review_submitButton"
+                    style="@style/ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/greenbutton"
+                    android:onClick="submitReview"
+                    android:text="Submit" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

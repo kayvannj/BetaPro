@@ -1,5 +1,7 @@
 package com.androidians.betapro;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ public class Review {
 	private String reviewer;
 	private String reviewID;
 	private ArrayList<String> reviewOn;
-	private Date submitTime;
+	private long submitTime;
 	private String reviewText;
 	private double rating;
 	
@@ -17,7 +19,7 @@ public class Review {
 		reviewOn = new ArrayList<String>();
 	}
 	
-	public Review(String reviewer,String reviewID, ArrayList<String> reviewOn, Date submitTime,
+	public Review(String reviewer,String reviewID, ArrayList<String> reviewOn, long submitTime,
 			String reviewText, double rating) {
 		super();
 		this.reviewer = reviewer;
@@ -29,14 +31,22 @@ public class Review {
 	}
 	
 	public Review(String s){
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		if(!s.equals("")){
 			
 			String[] userFields = s.split(";");
+			
 			reviewer = userFields[0].split(":")[1];
 			reviewID = userFields[1].split(":")[1];
-			String reviewOnListString = userFields[2].split(":")[1];  
+			String reviewOnListString = userFields[2].split(":")[1];
+			
 			reviewOn = parseArrayListFromString(reviewOnListString);
-//			submitTime = Date(userFields[3].split(":")[1]);
+			
+			
+			String timeString = userFields[3].split(":")[1];
+				
+			submitTime = Long.parseLong(timeString);
+			
 			reviewText = userFields[4].split(":")[1];
 			rating = Double.valueOf(userFields[5].split(":")[1]);
 			
@@ -49,10 +59,11 @@ public class Review {
 	
 	public String toString(){
 		String output = "reviewer:"+reviewer+";"
-		+"#reviewOn:"+reviewOn.toString()+";"
-		+"#submitTime:"+submitTime+";"
-		+"#reviewText:"+reviewText+";"
-		+"#rating:"+rating+"#";
+		+"reviewID:"+getReviewID()+";"		
+		+"reviewOn:"+reviewOn.toString()+";"
+		+"submitTime:"+submitTime+";"
+		+"reviewText:"+reviewText+";"
+		+"rating:"+rating;
 		return output;
 	}
 
@@ -77,7 +88,7 @@ public class Review {
 			String[] reviewListArray = reviewListString.split(",");
 			//get rid of [ and ]
 			reviewListArray[0] = reviewListArray[0].substring(1);
-			reviewListArray[reviewListArray.length-1] = reviewListArray[reviewListArray.length-1].substring(0,reviewListArray[reviewListArray.length-1].length()-2);
+			reviewListArray[reviewListArray.length-1] = reviewListArray[reviewListArray.length-1].substring(0,reviewListArray[reviewListArray.length-1].length()-1);
 			System.out.print(reviewListString);
 			System.out.print(reviewListArray);
 			
@@ -92,10 +103,6 @@ public class Review {
 	}
 
 
-
-
-
-	
 	public String getReviewID() {
 		return reviewer+submitTime;
 	}
@@ -117,11 +124,11 @@ public class Review {
 	public void removeReviewOn(String reviewOn) {
 		this.reviewOn.remove(reviewOn);
 	}
-	public Date getSubmitTime() {
+	public long getSubmitTime() {
 		return submitTime;
 	}
-	public void setSubmitTime(Date submitTime) {
-		this.submitTime = submitTime;
+	public void setSubmitTime(long l) {
+		this.submitTime = l;
 	}
 	public String getReviewText() {
 		return reviewText;

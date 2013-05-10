@@ -2,6 +2,7 @@ package com.androidians.betapro;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyAppsListAdapter extends BaseExpandableListAdapter{
 	private final Context context;
@@ -21,66 +24,19 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 	
 	int index;
 	View listItem;
+	String username;
 	
-	public MyAppsListAdapter(Context context,ArrayList<App> appsList){
+	public MyAppsListAdapter(Context context,ArrayList<App> appsList,String username){
 		
 		this.context=context;
 		this.appsList=appsList;
+		this.username = username;
 		textList=new ArrayList<TextView>();
-				
 		
 	}
 	
-	/*public void setListView(final ListView list){
-		this.list=list;
-		
-		
-	}
-    public int getCount() {
-        // TODO Auto-generated method stub
-		
-        return this.appsList.size();
-    }
-	
-	@Override
-	  public App getItem(int arg0) {
-	        // TODO Auto-generated method stub
-		Toast.makeText(getContext(), "getItem"+arg0, Toast.LENGTH_LONG).show();
-		 this.index=arg0;
-	      return this.appsList.get(arg0);
-	    }
-	
-	@Override
-	  public long getItemId(int arg0) {
-	        // TODO Auto-generated method stub
-		 
-	     return arg0;
-	    }
-	@Override
-	public View getView(int position, View convertView,ViewGroup parent){
-		
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		listItem = inflater.inflate(R.layout.app_item, parent,false);
-		tv = (TextView) listItem.findViewById(R.id.AppName);
-		tv.setOnClickListener(this);
-		
-		
-		
-		tv.setText(this.appsList.get(position).getName());
-		textList.add(tv);
-		return listItem;
-		
-		
-		}
 
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		final int position = list.getPositionForView((View) v.getParent());
-		textList.get(position).setText("clicked"+position);
-        Toast.makeText(getContext(), position+"", Toast.LENGTH_LONG).show();
-		
-	}*/
+
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
@@ -103,21 +59,17 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 			LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.expandable_child, null);
 		}
-			
-		
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		
 		TextView tv = (TextView) convertView.findViewById(R.id.childItem);
 		TextView detailTv = (TextView) convertView.findViewById(R.id.childDetailItem);
-		
-		
-		
-		
+
 		ArrayList<Review> reviewList = Review.getReviewFromReviewString(Login.getSharedPreferences(context), this.appsList.get(groupPosition).getReviewListString());
 		if (reviewList.size()>0) {
 			tv.setText(reviewList.get(childPosition).getReviewText());
-			detailTv.setText("Reviewed by "+reviewList.get(childPosition).getReviewer()+" on "+dateFormat.format(reviewList.get(childPosition).getSubmitTime()));
+			Date tempdate = new Date(reviewList.get(childPosition).getSubmitTime());
+			detailTv.setText("Reviewed by "+reviewList.get(childPosition).getReviewer().substring(0, reviewList.get(childPosition).getReviewer().length()-6)+" on "+dateFormat.format(tempdate));
 		}
 		
 		return convertView;
@@ -127,7 +79,10 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 	@Override
 	public int getChildrenCount(int groupPosition) {
 		// TODO Auto-generated method stub
-		return 1;
+		if (appsList.get(groupPosition).getReviewList().size()==0){
+			Toast.makeText(context, "This app has no reviews yet", Toast.LENGTH_SHORT).show();
+		}
+		return this.appsList.get(groupPosition).getReviewList().size();
 	}
 
 	@Override
@@ -152,30 +107,27 @@ public class MyAppsListAdapter extends BaseExpandableListAdapter{
 	public View getGroupView(final int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
+		
 		 if (convertView==null){
 			 LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			 convertView= inflater.inflate(R.layout.expandable_list_headings, null);
-			 
 		 }
 		 final TextView tv = (TextView) convertView.findViewById(R.id.heading);
 		 final TextView ctv = (TextView) convertView.findViewById(R.id.numReviewers);
+		 final RatingBar rbar = (RatingBar) convertView.findViewById(R.id.ratingBar); //star bar
+		 
+		 ArrayList<Review> reviewList = Review.getReviewFromReviewString(Login.getSharedPreferences(context), this.appsList.get(groupPosition).getReviewListString());
+		 
+		 double sum =0;
+		 
+		 for (int i=0;i<reviewList.size();i++){
+			 sum+= reviewList.get(i).getRating();
+		 }
+		 rbar.setRating((float) (sum/reviewList.size()));
 		 tv.setText(this.appsList.get(groupPosition).getName());
-		 ctv.setText(this.appsList.get(groupPosition).getReviewCounter()+" reviews");
+		 ctv.setText(this.appsList.get(groupPosition).getReviewList().size()+" reviews");
 		 
 		 
-		 //RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
-		 /*ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
-
-			@Override
-			public void onRatingChanged(RatingBar arg0, float rating, boolean arg2) {
-				
-				appsList.get(groupPosition).setAppRate(rating);
-				tv.setText("rated"+rating);
-				// TODO Auto-generated method stub
-				
-			}
-			 
-		 });*/
 		 return convertView;
 	}
 

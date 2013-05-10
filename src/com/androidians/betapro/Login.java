@@ -5,20 +5,28 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import android.R.color;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.mixpanel.android.mpmetrics.MixpanelAPI;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Login extends Activity {
 
@@ -30,7 +38,7 @@ public class Login extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		//mMixpanel = MixpanelAPI.getInstance(this, "YOUR_API_TOKEN");
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		setContentView(R.layout.activity_login);
 		
@@ -64,6 +72,44 @@ public class Login extends Activity {
 		final Intent intent = new Intent(this, Home.class);
 		final EditText user = (EditText)findViewById(R.id.editText1);
 		final EditText pass = (EditText)findViewById(R.id.editText2);
+		
+		//text views for sign up and forget password
+		final TextView signup = (TextView) findViewById(R.id.tv1);
+		final TextView forgot = (TextView) findViewById(R.id.tv2);
+		
+		signup.setClickable(true);
+		forgot.setClickable(true);
+		
+		
+		signup.setTextColor(Color.parseColor("#00bfff"));
+		forgot.setTextColor(Color.parseColor("#00bfff"));
+		
+		final Intent registerIntent = new Intent(this,Register.class);
+		final Intent forgetIntent = new Intent(this,PasswordReset.class);
+	    signup.setOnClickListener(new View.OnClickListener() {
+	   		
+	   		@Override
+	   		public void onClick(View v) {
+	   			// TODO Auto-generated method stub
+
+	   			startActivity(registerIntent);
+	   			
+	   		}
+	   	});
+
+       forgot.setOnClickListener(new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+			startActivity(forgetIntent);
+			
+		}
+	});
+		
+	
+		//final TextView signupTV= (TextView) findViewById(R.id.s);
 		
 		//setup shared prefrences
 		final SharedPreferences preferences = getSharedPreferences(this);
@@ -115,18 +161,19 @@ public class Login extends Activity {
 			        	activeUser = new User(userString);
 		            	//User activeUser = new User(user.getText().toString(), pass.getText().toString());
 		            	//activeUser.fillUser(userString);
+			        	intent.putExtra(CURRENT_USER, activeUser.getUserID());
+			        	startActivity(intent);
 			        }else{
-			        	activeUser = new User(user.getText().toString(), pass.getText().toString(),user.getText().toString()+"UserID");
+			        	
+			        	Toast.makeText(getApplicationContext(), "Invalid username/password", Toast.LENGTH_LONG).show();
+			        	/*activeUser = new User(user.getText().toString(), pass.getText().toString(),user.getText().toString()+"UserID");
 			        	allUsers.add(activeUser);
 			        	System.out.println("activeUser's tostring "+ activeUser.toString());
 			        	editor.putString(activeUser.getUserID(), activeUser.toString());
 			        	allIDs.add(activeUser.getUserID());
 			        	editor.putStringSet(USERS_KEY, allIDs);
-			        	editor.commit();
+			        	editor.commit();*/
 			        }
-			        intent.putExtra(CURRENT_USER, activeUser.getUserID());
-			        
-		        	startActivity(intent);
 				}
 		        
 			}
@@ -144,7 +191,22 @@ public class Login extends Activity {
 		getMenuInflater().inflate(R.menu.activity_login, menu);
 		return true;
 	}
-	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            
+	            return true;
+	        case R.id.help:
+	        	Intent helpIntent = new Intent(this,doc.class);
+	        	startActivity(helpIntent);
+	        	return true;
+	      
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 	@Override
 	protected void onDestroy() {
 	    //mMixpanel.flush();

@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:padding="15dp" >
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:text="Step: 3 of 3"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/Green" />
 
     <RelativeLayout
         android:id="@+id/reviewer_count_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/TextView01"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp" >
@@ -25,7 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:inputType="number"
-            android:minEms="3" >
+            android:maxEms="4"
+            android:minEms="4" >
 
             <requestFocus />
         </EditText>
@@ -47,13 +60,22 @@
             android:text="Minimum pay amount:"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/min_pay_et"
+            android:layout_toLeftOf="@+id/min_pay_et"
+            android:text="$"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <EditText
             android:id="@+id/min_pay_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:inputType="number"
-            android:minEms="3" />
+           	android:inputType="numberDecimal"
+            android:maxEms="4"
+            android:minEms="4" />
 
     </RelativeLayout>
 
@@ -73,13 +95,22 @@
             android:text="Maximum pay amount:"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/max_pay_et"
+            android:layout_toLeftOf="@+id/max_pay_et"
+            android:text="$"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <EditText
             android:id="@+id/max_pay_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:inputType="number"
-            android:minEms="3" />
+            android:inputType="numberDecimal"
+            android:maxEms="4"
+            android:minEms="4" />
 
     </RelativeLayout>
 
@@ -105,12 +136,25 @@
 
         <Button
             android:id="@+id/Publish"
-            android:layout_width="wrap_content"
+            style="@style/SingleGradient"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="false"
             android:text="Publish" />
 
+        <Button
+            android:id="@+id/prev_bt2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            
+            android:text="Previous"
+           
+            android:background="@drawable/btn_light_green"
+            android:textColor="@color/White" />
     </RelativeLayout>
 
 </RelativeLayout>

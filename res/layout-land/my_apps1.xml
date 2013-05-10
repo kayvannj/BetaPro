@@ -1,0 +1,42 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+
+
+    <ExpandableListView
+        
+        android:text="@string/my_apps"
+
+        android:id="@+id/appList"
+        android:layout_width="fill_parent"
+
+        android:layout_height="wrap_content"
+        
+        >
+
+
+       
+
+	</ExpandableListView>
+	<TextView
+	    android:id="@+id/no_apps"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+	    
+	</TextView>
+	
+    <Button 
+            android:id="@+id/uploadBtn"
+            android:text="@string/upload_btn"
+
+            android:layout_marginBottom="10sp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textColor="@color/White"
+            android:background="@drawable/greenbutton"
+
+    ></Button>
+</LinearLayout>

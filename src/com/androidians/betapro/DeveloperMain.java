@@ -1,12 +1,15 @@
 package com.androidians.betapro;
 
 
-import java.lang.reflect.Array;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -17,21 +20,25 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.opengl.Visibility;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.text.format.DateFormat;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -40,6 +47,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,56 +55,66 @@ import android.widget.Toast;
 
 public class DeveloperMain extends FragmentActivity implements ActionBar.TabListener {
 	
-	
-	static MyAppsListAdapter appsListAdapter;
-	static ExpandableListView myAppsListView;
-	public static ArrayList<User> allUsers;
-	public static String currentUser;
-	public static ArrayList<String> askQuestions;
-
+	static MyAppsListAdapter appsListAdapter;		//Used for listing apps in MyApps
+	static ExpandableListView myAppsListView;		//Used for listing apps in MyApps
+	public static ArrayList<User> allUsers;			//Array of all users (used to find the current user)
+	public static String currentUser;				//The userID of logged-in user
+	public static User loggedinUser;				//The logged-in user
+	public static ArrayList<String> askQuestions;	//Array of custom questions
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
-	private static final int TAB_PUBLISH = 0;
-	private static final int TAB_MYAPPS =1;
-	private static FragmentManager fm;
-	public static SharedPreferences preferences;
-	public static SharedPreferences.Editor editor;
-	public static HashMap<String, String> myAppHashMap;
-	static ArrayList<App> testAppList;
-	public static User loggedinUser;
+	private static final int TAB_PUBLISH = 0;		//Constent tab number
+	private static final int TAB_MYAPPS =1;			//Constent tab number
+	private static FragmentManager fm;				//Used For fragment transactions
+	public static SharedPreferences preferences;	//For reading from storage
+	public static SharedPreferences.Editor editor;	//For writing to storage
+	public static HashMap<String, String> myAppHashMap;//To keep all the data for publishing a new application
+    public static HashSet<String> askforSet;		//
+	static ArrayList<App> testAppList;				//Current user's apps
+	public static Context context;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(arg0);
 		//set the layout
 		setContentView(R.layout.developer_container_layout);
+		
 		// Set up the action bar to show tabs and hide title.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(true);
+		
 		// For each of the sections in the app, add a tab to the action bar.
 		actionBar.addTab(actionBar.newTab().setText(R.string.publish_tab)
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.myapps_tab)// No action for this class yet
 				.setTabListener(this));
 		
-		actionBar.setSelectedNavigationItem(TAB_PUBLISH);
+		actionBar.setSelectedNavigationItem(TAB_MYAPPS);
 		
+		
+		//Initializing variables
 	    testAppList = new ArrayList<App>();
 		askQuestions = new ArrayList<String>();
 		myAppHashMap = new HashMap<String, String>();
+		askforSet = new HashSet<String>();
 		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = preferences.edit();
 		HashSet<String> emptySet = new HashSet<String>();
 		HashSet<String> allIDs = (HashSet<String>) preferences.getStringSet(Login.USERS_KEY, emptySet);
-		Iterator itr = allIDs.iterator();
+		Iterator<String> itr = allIDs.iterator();
 		allUsers = new ArrayList<User>();
+		context =this;
 		
+		//Getting the current UserID from intent
 		Intent intent = getIntent();
 		currentUser = intent.getStringExtra(Login.CURRENT_USER);
 		
+		//Loading All the users
 		while(itr.hasNext()) {
 			String userInfo = preferences.getString((String) itr.next(), "");
 			allUsers.add(new User(userInfo));
@@ -104,7 +122,6 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		
 		
 	}
-
 
 	public static void toastMe(Context c,String s){
 		Toast.makeText(c, s, Toast.LENGTH_LONG).show();
@@ -147,6 +164,11 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	            intent.putExtra(Login.CURRENT_USER, currentUser);
 	            startActivity(intent);
 	            return true;
+	        case R.id.help:
+	        	Intent helpIntent = new Intent(this,doc.class);
+	        	startActivity(helpIntent);
+	        	return true;
+	      
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -155,8 +177,8 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		Log.d("Tab selected", "tab has been selected"); 
-		Fragment publishPage1Fragment = new PublishPage1(); //the fragment that we want to create and show 
-		Fragment myApps1Fragment = new MyApps1();
+		Fragment publishPage1Fragment = new PublishPage1(); //the fragment that we want to create and show
+		Fragment myApps1Fragment = new MyApps1();		
 		fm = getSupportFragmentManager();
 		android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction(); //for the Transaction between fragments
 		if(tab.getPosition()==TAB_PUBLISH){ //check to see which tab has been selected
@@ -169,6 +191,12 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		}
 
 		
+	}
+	public static void changeToPublish1Fragment(){ 
+		Fragment publish1Fragment = new PublishPage1();
+		android.support.v4.app.FragmentTransaction transaction = fm.beginTransaction();
+		transaction.replace(R.id.developer_container,publish1Fragment);
+		transaction.commit();
 	}
 	
 	public static void changeToPublish2Fragment(){ 
@@ -204,10 +232,11 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		EditText iconUri;
 		EditText apkUri;
 		
+		
 		public PublishPage1() {
 			// TODO Auto-generated constructor stub
+			
 		}
-
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -227,6 +256,28 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			screenShot2Uri = (EditText)this.getView().findViewById(R.id.screenShot2_et);
 			iconUri = (EditText)this.getView().findViewById(R.id.icon_et);
 			apkUri= (EditText)this.getView().findViewById(R.id.apk_et);
+			
+
+			String prevAppname = myAppHashMap.get("appname");
+			String prevappdes = myAppHashMap.get("appdes");
+			String previconuri = myAppHashMap.get("iconuri");
+			String ssuri1 = myAppHashMap.get("ssuri1");
+			String ssuri2 = myAppHashMap.get("ssuri2");
+			String apkuri= myAppHashMap.get("apkuri");
+			if (prevAppname!=null){
+			 appName.setText(prevAppname);}
+			if (prevappdes!=null){
+			 appDes.setText(prevappdes);}
+			if (previconuri!=null){
+			 iconUri.setText(previconuri);}
+			if (apkuri!=null){
+			 apkUri.setText(apkuri);}
+			if (ssuri1!=null){
+			 screenShot1Uri.setText(ssuri1);
+			}
+			if (ssuri2!=null){
+			 screenShot2Uri.setText(ssuri2);
+			}
 			
 			//an intent for file browsing
 	        final Intent intent = new Intent();
@@ -283,7 +334,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 					if(appName.getText().toString().equals("")) Toast.makeText(getActivity(), "App name is required", Toast.LENGTH_SHORT).show();
 					else if(appDes.getText().toString().equals("")) Toast.makeText(getActivity(), "Description is required", Toast.LENGTH_SHORT).show();
 					else if(iconUri.getText().toString().equals("")) Toast.makeText(getActivity(), "Icon is required", Toast.LENGTH_SHORT).show();
-					else if(screenShot1Uri.getText().toString().equals("")) Toast.makeText(getActivity(), "One Screen Shot is required", Toast.LENGTH_SHORT).show();
+					//else if(screenShot1Uri.getText().toString().equals("")) Toast.makeText(getActivity(), "One Screen Shot is required", Toast.LENGTH_SHORT).show();
 					else if(apkUri.getText().toString().equals("")) Toast.makeText(getActivity(), "Apk is required", Toast.LENGTH_SHORT).show();
 					else {
 						myAppHashMap.put("appname", appName.getText().toString());
@@ -297,6 +348,9 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 					}
 				}
 			});
+			
+
+			
 			
 		}
 	
@@ -325,6 +379,13 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		}
 		
 	}
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		mgr.hideSoftInputFromWindow(apkUri.getWindowToken(), 0);
+		super.onDestroy();
+	}
 	
 	}
 
@@ -332,13 +393,14 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		ListView askFor;
 		Button addToAskForButton;
 		CheckBox targetEverydayuser;
-		CheckBox targetProfessionals;
 		CheckBox targetExpert;
 		Button nextBt;
+		Button prevBt;
 		ArrayList<AskObj> askForList;
-		
+		boolean first=true;
+
 		public PublishPage2() {
-			// TODO Auto-generated constructor stub
+			
 		}
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -350,15 +412,64 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		public void onActivityCreated(Bundle savedInstanceState) {
 
 			super.onActivityCreated(savedInstanceState);
-			
+
 			// getting the list view and add button
 			askFor = (ListView)this.getView().findViewById(R.id.ask_for_lv);
 			addToAskForButton = (Button)this.getView().findViewById(R.id.add_to_ask_for_bt);
 			nextBt = (Button)this.getView().findViewById(R.id.next_bt);
 			// All to add custom adapter and add more functionality using dialogs 
+
+			Iterator<String> iter = askforSet.iterator();
+
 			final ArrayList<AskObj> askObjectLists = new ArrayList<AskObj>();
+			
 			AskForArrayAdapter adapter = new AskForArrayAdapter(getActivity(), askObjectLists);
 			askFor.setAdapter(adapter);
+			
+			targetEverydayuser = (CheckBox)this.getView().findViewById(R.id.everyday_user_cb);
+			
+			targetExpert=(CheckBox)this.getView().findViewById(R.id.experts_cb);
+			
+			String ev = myAppHashMap.get("Everyday User");
+			if (ev!=null){
+				if (ev.equals("checked")){
+				targetEverydayuser.setChecked(true);
+				}
+			}
+			
+			
+			String exp = myAppHashMap.get("Experts");
+			if (exp!=null){
+				if (exp.equals("checked")){
+					targetExpert.setChecked(true);
+				}
+			}
+			
+
+			targetEverydayuser.setOnCheckedChangeListener(new OnCheckedChangeListener()
+			{
+			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			    {
+			        if ( isChecked )
+			        {
+			            myAppHashMap.put("Everyday User", "checked");
+			        }
+
+			    }
+			});
+
+			targetExpert.setOnCheckedChangeListener(new OnCheckedChangeListener()
+			{
+			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			    {
+			        if ( isChecked )
+			        {
+			            myAppHashMap.put("Experts", "checked");
+			        }
+
+			    }
+			});
+
 			
 			addToAskForButton.setOnClickListener(new OnClickListener() {
 				@Override
@@ -367,7 +478,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 					Builder builder = new AlertDialog.Builder(getActivity());
 					final EditText et = new EditText(getActivity());
 					et.setHint("Enter what you want to ask");
-					
+
 					builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -393,6 +504,7 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 					for (AskObj askObj : askObjectLists) {
 						if (askObj.isChecked()) {
 							askQuestions.add(askObj.getText());
+							askforSet.add(askObj.getText().toString());
 						}
 					}
 					
@@ -400,11 +512,47 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 				}
 			});
 			
+			prevBt =(Button)this.getView().findViewById(R.id.prev_bt1);
+			prevBt.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+
+					DeveloperMain.changeToPublish1Fragment();
+					
+				}
+			});
+			
 			// Built in questions for ask
+			
+			
+		
+			
 			askObjectLists.add(new AskObj("User Interface", false));
 			askObjectLists.add(new AskObj("Performance", false));
 			askObjectLists.add(new AskObj("Errors", false));
 			
+			
+			
+			while (iter.hasNext()){
+				String s = iter.next();
+				if (s.equals("User Interface")){
+					askObjectLists.get(0).checked=true;
+				}
+				if (s.equals("Performance")){
+					askObjectLists.get(1).checked=true;
+				}
+				if (s.equals("Errors")){
+					askObjectLists.get(2).checked=true;
+				}
+			    if (!(s.equals("User Interface")||s.equals("Performance")||s.equals("Errors"))){
+				//TO-DO
+			    }
+			    
+			}
+			
+			askforSet= new HashSet<String>();
 			// Keeping the ask objects
 			askForList = askObjectLists;
 			
@@ -546,8 +694,9 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 		EditText maxPayAmount;
 		CheckBox agreement;
 		Button publishBt;
+		Button prevBt;
+		
 		public PublishPage3() {
-			// TODO Auto-generated constructor stub
 		}
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -565,6 +714,51 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			agreement = (CheckBox)this.getView().findViewById(R.id.agreement_cb);
 			publishBt = (Button)this.getView().findViewById(R.id.Publish);
 			
+			minPayAmount.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
+			maxPayAmount.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
+			maxPayAmount.addTextChangedListener(new TextWatcher(){
+ 				public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+	            public void onTextChanged(CharSequence s, int start, int before, int count){
+	             }
+				@Override
+				public void afterTextChanged(Editable s) {
+					// TODO Auto-generated method stub
+					if (s.toString().equals("")||minPayAmount.getText().toString().equals("")){
+						return;
+					}
+					double max = (double) Double.parseDouble(s.toString());
+					double min = (double) Double.parseDouble(minPayAmount.getText().toString());
+					if (max<min){
+						maxPayAmount.setError("Maximum amount cannot be less than minimum");
+						return;
+					}
+				}
+
+	        }); 
+			
+			
+		     String r = myAppHashMap.get("NumReviews");
+		     String min = myAppHashMap.get("minPay");
+		     String max = myAppHashMap.get("maxPay");
+		     
+		     howManyReviews.requestFocus();
+		     InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+			 mgr.showSoftInput(howManyReviews, 0);
+		     
+		     
+		     if (r!=null){
+		    	 howManyReviews.setText(r);
+		     }
+		     
+		     if (min!=null){
+		    	 minPayAmount.setText(min);
+		     }
+		     
+		     if(max!=null){
+		    	 maxPayAmount.setText(max);
+		     }
+			
+
 			// user has not agreed to the agreement
 			publishBt.setEnabled(false);
 			// enable the publish when user agreed
@@ -575,6 +769,9 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 					// TODO Auto-generated method stub
 					if (isChecked) {
 						publishBt.setEnabled(true);
+						myAppHashMap.put("NumReviews", howManyReviews.getText().toString());
+						myAppHashMap.put("minPay", minPayAmount.getText().toString());
+						myAppHashMap.put("maxPay", maxPayAmount.getText().toString());
 					}else{
 						publishBt.setEnabled(false);
 					}
@@ -589,6 +786,12 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 					App myApp = new App(myAppHashMap.get("appname"),myAppHashMap.get("appname")+"AppID", myAppHashMap.get("appdes"), myAppHashMap.get("iconuri"), myAppHashMap.get("apkuri"), 0.0, Double.parseDouble(minPayAmount.getText().toString()), Double.parseDouble(maxPayAmount.getText().toString()), Integer.parseInt(howManyReviews.getText().toString()));
 					for (String s : askQuestions) {
 						myApp.addDeveloperAsksFor(s);
+					}
+					if (!myAppHashMap.get("ssuri1").equals("")) {
+						myApp.addScreenShots(myAppHashMap.get("ssuri1"));
+					}
+					if (!myAppHashMap.get("ssuri2").equals("")) {
+						myApp.addScreenShots(myAppHashMap.get("ssuri2"));
 					}
 					
 					//find the current user and load the user file
@@ -605,6 +808,21 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 					editor.putString(cUser.getUserID(), cUser.toString());
 					editor.putString(myApp.getAppID(), myApp.toString());
 					editor.commit();
+					try {
+						new MyFTP(context).uploadFile(new File(myApp.getIcon())); 
+						
+						if(myApp.getScreenShots().size()>0){
+							new MyFTP(context).uploadFile(new File(myApp.getScreenShots().get(0)));
+							if(myApp.getScreenShots().size()>1){
+								new MyFTP(context).uploadFile(new File(myApp.getScreenShots().get(1)));
+							}
+						}
+						new MyFTP(context).uploadFile(new File(myApp.getApk()));
+					} catch (Exception e) {
+						// TODO: handle exception
+						Log.e("UPLOAD ERROR",e.toString());
+					}
+					
 					
 					Fragment myApps1Fragment = new MyApps1();
 					fm = getActivity().getSupportFragmentManager();
@@ -614,32 +832,73 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 					ActionBar ac = getActivity().getActionBar();
 					ac.setSelectedNavigationItem(TAB_MYAPPS);
 					
+					myAppHashMap.clear();
+					askforSet.clear();
+					
 				}
 				
 			});
+			
+			prevBt =(Button)this.getView().findViewById(R.id.prev_bt2);
+			prevBt.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					DeveloperMain.changeToPublish2Fragment();
+					
+				}
+			});
 
+		}
+		@Override
+		public void onDestroy() {
+			// TODO Auto-generated method stub
+			InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+			mgr.hideSoftInputFromWindow(minPayAmount.getWindowToken(), 0);
+			super.onDestroy();
 		}
 		
 	}
 	public static class MyApps1 extends Fragment implements OnChildClickListener{
-
+		InputMethodManager inputMethodManager;
+		
+		
+		Button uploadBtn;
+		Context context;
+		
 		public MyApps1() {
-			// TODO Auto-generated constructor stub
-			
+
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			return inflater.inflate(R.layout.my_apps1, container, false);
-			
 		}
+		
+		
 		
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
 			myAppsListView = (ExpandableListView) this.getView().findViewById(R.id.appList);
+			myAppsListView.setVerticalScrollBarEnabled(false);
 			TextView noAppView = (TextView) this.getView().findViewById(R.id.no_apps);
+			
+			uploadBtn = (Button) this.getView().findViewById(R.id.uploadBtn);
+			uploadBtn.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					DeveloperMain.changeToPublish1Fragment();
+					ActionBar ac = getActivity().getActionBar();
+					ac.setSelectedNavigationItem(TAB_PUBLISH);
+					
+				}
+			});
+
 			
 			for (User u :allUsers){
 				String name = u.getUserID();
@@ -656,8 +915,11 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 			}else{
 				noAppView.setVisibility(View.GONE);
 				myAppsListView.setVisibility(View.VISIBLE);
-				appsListAdapter = new MyAppsListAdapter(getActivity(),testAppList);
+				Collections.reverse(testAppList);
+				appsListAdapter = new MyAppsListAdapter(getActivity(),testAppList,loggedinUser.getUsername());
+				
 				myAppsListView.setAdapter(appsListAdapter);
+				
 				myAppsListView.setOnChildClickListener(this);
 			}
 		}
@@ -667,18 +929,38 @@ public class DeveloperMain extends FragmentActivity implements ActionBar.TabList
 				int groupPosition, int childPosition, long arg4) {
 			// TODO Auto-generated method stub
 			 Log.d("myapps", "onclick1");
+			 
+			 
+			 ArrayList<Review> reviews = Review.getReviewFromReviewString(preferences, testAppList.get(groupPosition).getReviewList().toString());
+			 if (reviews.size()<=0){
+				 return false;
+			 }
+			 
 			 final Intent appIntent = new Intent(getActivity(),ReadReviewActivity.class);
 			 Log.d("myapps", "onclick2");
 			 //Toast.makeText(getActivity(), appIntent.toString(), Toast.LENGTH_LONG).show();
-			 ArrayList<Review> reviews = Review.getReviewFromReviewString(preferences, testAppList.get(groupPosition).getReviewersListString());
+			// ArrayList<Review> reviews = Review.getReviewFromReviewString(preferences, testAppList.get(groupPosition).getReviewersListString());
+			
+			 String reviewOn = "";
+			//for (int i =0;i<reviews.get(childPosition).getReviewOn().size();i++){
+			// reviewOn+=reviews.get(childPosition).getReviewOn();
+			//}
+			
+			 appIntent.putExtra("rating",reviews.get(childPosition).getRating()+"");
+			 appIntent.putExtra("reviewOn", reviews.get(childPosition).getReviewOn()+"");
 			 appIntent.putExtra("details",reviews.get(childPosition).getReviewText());
+			 appIntent.putExtra("app", testAppList.get(groupPosition).getName());
 			 appIntent.putExtra("title",reviews.get(childPosition).getReviewer());
-			 appIntent.putExtra("theUser", loggedinUser.toString());
+			 appIntent.putExtra("theUser", loggedinUser.getUserID());//change to user id
 			 appIntent.putExtra("theReviewer", reviews.get(childPosition).getReviewer());
 			 
 			 startActivity(appIntent);
 		     return false;
 		
 		}
+		
+		
 	}
+	
+
 }

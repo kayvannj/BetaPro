@@ -1,79 +1,136 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    android:layout_height="fill_parent" 
-    >
-    <TextView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp" >
 
-        android:id="@+id/detailView1"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30sp"
-       	android:layout_centerHorizontal="true"  
-       	android:layout_marginLeft="60sp"  
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                 >
 
- 
-   
-   
-      <TextView
+                <TextView
+                    android:id="@+id/detailView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="right"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-        android:id="@+id/detailView2"
-        android:layout_marginTop="30sp"
-        android:layout_below="@+id/detailView1"
-        android:layout_marginLeft="60sp" 
-		android:layout_centerHorizontal="true"       
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-         />
-   
-   
-   
-   <LinearLayout
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal"
-       android:layout_alignParentBottom="true" >
-        <Button 
-            android:id="@+id/rateBtn"
-            android:text="@string/rate_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0" >
 
-            android:textColor="@color/White"
-            android:background="@drawable/bluebutton"
-           
-            ></Button>
-         <Button 
-            android:text="@string/ask_btn" 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:textSize="17sp"
-			 android:textColor="@color/White"
-             android:background="@drawable/bluebutton"
-          ></Button>
+                    <RatingBar
+                        android:id="@+id/read_ratingBar"
+                        style="@style/rating_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_weight="0"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:rating="0.0"
+                        android:stepSize="1.0" />
 
-          
-        
-          <Button 
-            android:text="@string/save_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             android:layout_weight="1"
+                </RelativeLayout>
 
-             android:textColor="@color/White"
-             android:background="@drawable/bluebutton"
-          ></Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1" >
+
+                <TextView
+                    android:id="@+id/for_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.35"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:weightSum="1" >
+
+                <TextView
+                    android:id="@+id/detailView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="0.65" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Details:"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailView2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="0"
+                    android:gravity="center_vertical|top"
+                    android:minLines="4" />
+
+            </LinearLayout>
         </LinearLayout>
- 
+    </ScrollView>
 
-    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/readBackBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_light_green"
+            android:text="Back"
+            android:textColor="@color/White" />
+
+        <Button
+            android:id="@+id/rateBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_blue_back"
+            android:text="Rate / Pay"
+            android:textColor="@color/White" >
+
+        </Button>
+    </LinearLayout>
+
 </RelativeLayout>
-

@@ -1,0 +1,123 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="15sp"
+    android:orientation="vertical" >
+	<LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_gravity="center_horizontal"
+       android:layout_height="wrap_content" >
+   		<TextView
+        android:id="@+id/greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up For BetaPro"
+        android:layout_marginBottom="10sp"
+        
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+	</LinearLayout>
+
+	<TextView
+	    android:id="@+id/name"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="Name"
+	   
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	 <EditText
+	     android:id="@+id/inputname"
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:layout_marginBottom="10sp"
+	     android:background="@drawable/signupfields"
+	     android:hint="pick a user name"
+	     android:padding="10dp"
+	     android:singleLine="true" />
+<requestFocus />
+	
+	 <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:text="Email"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	<EditText
+	    android:id="@+id/inputemail"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginBottom="10sp"
+	    android:background="@drawable/signupfields"
+	    android:hint="enter your email"
+	    android:inputType="textEmailAddress"
+	    android:padding="10dp"
+	    android:singleLine="true" />
+
+	<TextView
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose a password"
+       
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	 <EditText
+	     android:id="@+id/inputpassword"
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:layout_marginBottom="10sp"
+	     android:background="@drawable/signupfields"
+	     android:hint="enter your password"
+	     android:inputType="textPassword"
+	     android:padding="10dp"
+	     android:singleLine="true" />
+
+	<TextView
+        android:id="@+id/repeat_password"
+        android:layout_width="wrap_content"
+        
+        android:layout_height="wrap_content"
+        android:text="Confirm password"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	<EditText
+	    android:id="@+id/inputrepeatpassword"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginBottom="10sp"
+	    android:background="@drawable/signupfields"
+	    android:hint="confirm your password"
+	    android:inputType="textPassword"
+	    android:padding="10dp"
+	    android:singleLine="true" />
+
+	<LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+         android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/regBtn"
+            android:layout_marginTop="15sp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/greenbutton"
+            android:text="Register"
+            android:textSize="30sp"
+            android:textColor="@color/White" >
+
+        </Button>
+	 </LinearLayout>
+</LinearLayout>
+	
+	
+
+        
+
+  
+
+       

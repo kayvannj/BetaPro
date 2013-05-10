@@ -27,7 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="10sp"
+            android:maxLines="1"
             android:paddingBottom="10sp"
+            android:text="You don't have any reviews yet."
             android:textAppearance="?android:attr/textAppearanceLarge" />
  </LinearLayout>
  

@@ -1,0 +1,98 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical">
+    
+     <RatingBar
+        android:id="@+id/rating_pay"
+
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:numStars="5"
+		style="@style/rating_bar"
+
+       
+
+
+        android:stepSize="1.0"
+        android:rating="2.0" />
+    <TextView
+        android:id="@+id/progress"
+
+        android:layout_marginLeft="3dp"
+
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >       
+        
+        
+    </TextView>
+    
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        
+        />
+
+    <LinearLayout android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:orientation="horizontal"
+        		android:weightSum="3"
+        		android:padding="5dp"
+        		>
+      <TextView
+        android:id="@+id/grid1"
+        android:text="@string/one"
+       android:layout_gravity="left"
+       android:layout_weight="1"
+       android:gravity="left"
+       
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" >       
+        </TextView>
+              <TextView
+        android:id="@+id/grid2"
+        android:text="@string/five"
+        android:layout_weight="1"
+        android:gravity="center"
+      android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >       
+        </TextView>
+              <TextView
+        android:id="@+id/grid3"
+        android:text="@string/ten"
+         android:layout_gravity="right"
+         android:layout_weight="1"
+         android:gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >       
+        </TextView>
+    </LinearLayout>
+
+    
+  
+        <Button 
+            android:id="@+id/payBtn"
+            android:text="@string/pay_btn"
+
+            android:layout_marginBottom="10sp"
+            android:layout_width="150dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textColor="@color/White"
+            android:background="@drawable/greenbutton"
+
+            
+
+
+         ></Button>
+       
+        
+
+    
+</LinearLayout>

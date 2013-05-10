@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login" >
+
+    <Button
+        android:id="@+id/button1"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_blue"
+        android:text="Log In" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:singleLine="true"
+        android:text="BetaPro"
+        android:textSize="40sp" />
+    
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/border_top_right_left"
+        android:ems="11"
+        android:hint="Username"
+        android:padding="15dp"
+        android:singleLine="true"
+        android:textColorHint="#333333"
+        android:textSize="20dp" />
+    
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editText1"
+            android:layout_alignRight="@+id/editText1"
+            android:layout_below="@+id/editText1"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/square"
+            android:ems="11"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:password="true"
+            android:singleLine="true"
+            android:textColorHint="#333333"
+            android:textSize="20dp" />
+
+</RelativeLayout>

@@ -8,15 +8,17 @@
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="0.2"/>
-
-    <CheckBox
+    <TextView 
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.05"
+        android:text="•"/>
+    <TextView 
         android:id="@+id/review_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="RadioButton" 
-        android:clickable="false"
-        android:checked="true"
-        android:layout_weight="0.8"
+        android:text="ReviewOnItem" 
+        android:layout_weight="0.75"
+        android:gravity="left"
         android:textSize="15sp"/>
-
 </LinearLayout>

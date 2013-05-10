@@ -38,7 +38,9 @@
         
         />
 
-    <LinearLayout android:layout_height="wrap_content"
+    <LinearLayout 
+        
+        android:layout_height="wrap_content"
         		android:layout_width="fill_parent"
         		android:orientation="horizontal"
         		android:weightSum="3"
@@ -73,6 +75,31 @@
         android:layout_height="wrap_content" >       
         </TextView>
     </LinearLayout>
+    
+  
+    <LinearLayout 
+        
+        android:layout_height="wrap_content"
+        		android:layout_width="wrap_content"
+        		android:orientation="horizontal"
+        		 android:layout_gravity="center"
+        		android:padding="5dp"
+        		>
+      	<TextView
+      	    android:id="@+id/dialogText"
+      	    android:text="Or enter your amount here:"
+      	    android:layout_width="wrap_content"
+      	    android:layout_height="wrap_content">
+      	 </TextView>
+      	 	<EditText
+      	    android:id="@+id/dialogEditText"
+      	    android:layout_width="wrap_content"
+      	    android:layout_height="wrap_content"
+      	    android:inputType="numberDecimal"
+            android:maxEms="4"
+            android:minEms="4">
+      	 </EditText>
+     </LinearLayout>
 
     
   
@@ -86,11 +113,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/White"
             android:background="@drawable/greenbutton"
-
-            
-
-
-         ></Button>
+        ></Button>
+        
+        
        
         
 
